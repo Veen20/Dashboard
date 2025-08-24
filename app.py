@@ -391,9 +391,15 @@ if "sentiment" not in df.columns or df["sentiment"].isna().any() or (df["sentime
 
     if texts:
         sentiments = []
-        batch = 64
+        batch = 12  # lebih aman untuk server
+        # Filter teks kosong/None
+        texts = [t for t in texts if t and t.strip()]
         for i in range(0, len(texts), batch):
-            sentiments.extend(predict_sentiment(pipe, texts[i:i+batch]))
+            try:
+                sentiments.extend(predict_sentiment(pipe, texts[i:i+batch]))
+            except Exception as e:
+                st.warning(f"Gagal proses batch {i}-{i+batch}: {e}")
+
 
         # Update dataframe lokal
         df.loc[mask_new, "sentiment"] = sentiments
