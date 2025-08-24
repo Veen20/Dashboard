@@ -391,7 +391,7 @@ if "sentiment" not in df.columns or df["sentiment"].isna().any() or (df["sentime
 
     if texts:
         sentiments = []
-        batch = 12  # lebih aman untuk server
+        batch = 8  # lebih aman untuk server
         # Filter teks kosong/None
         texts = [t for t in texts if t and t.strip()]
         for i in range(0, len(texts), batch):
