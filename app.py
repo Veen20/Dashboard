@@ -11,6 +11,7 @@
 # - Cache model & data untuk performa (ramah deploy)
 # - Menggunakan review_time sebagai waktu utama analisis; created_at untuk monitoring crawl
 
+import calendar
 import io
 import re
 from typing import List
