@@ -66,7 +66,7 @@ def convert_relative_time(relative_str: str):
     return None
 
 # # ===== Fungsi utama crawling =====
-def crawl_gmaps_reviews(limit: int = 150) -> int:
+def crawl_gmaps_reviews(limit: int = 10) -> int:
     logging.info(f"Mulai crawling hingga {limit} review...")
 
     params = {
