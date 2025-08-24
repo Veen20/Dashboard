@@ -104,9 +104,12 @@ def crawl_gmaps_reviews(limit: int = 150) -> int:
     added_count = 0
     for r in reviews:
         comment_text = r.get("text") or r.get("snippet") or ""
+        comment_text = clean_text(comment_text)
         if not comment_text.strip():
             continue
 
+        sentiment_result = predict_sentiment(pipe, [comment_text])
+        
         username = (
             r.get("user", {}).get("name")
             if isinstance(r.get("user"), dict)
