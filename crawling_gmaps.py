@@ -6,18 +6,18 @@ from supabase import create_client
 import streamlit as st
 from serpapi import GoogleSearch
 
-# # ====== Konfigurasi ======
-# PLACE_ID = "ChIJoY-1r-Z1Oy4R15M3KUcaPLg"  # ganti dengan Place ID Google Maps Samsat UPTB Palembang 1
+# ====== Konfigurasi ======
+PLACE_ID = "ChIJoY-1r-Z1Oy4R15M3KUcaPLg"  # ganti dengan Place ID Google Maps Samsat UPTB Palembang 1
 
-# # Supabase client
-# SUPABASE_URL = st.secrets["SUPABASE_URL"]
-# SUPABASE_KEY = st.secrets["SUPABASE_KEY"]
-# SERPAPI_KEY = st.secrets["SERPAPI_KEY"]
+# Supabase client
+SUPABASE_URL = st.secrets["SUPABASE_URL"]
+SUPABASE_KEY = st.secrets["SUPABASE_KEY"]
+SERPAPI_KEY = st.secrets["SERPAPI_KEY"]
 
-# supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
+supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
-# # Logging
-# logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+# Logging
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
 # # ===== Fungsi konversi waktu relatif → absolut (sama seperti kode kamu) =====
 # def convert_relative_time(relative_str: str):
