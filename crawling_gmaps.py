@@ -19,51 +19,51 @@ supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 # Logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
-# # ===== Fungsi konversi waktu relatif → absolut (sama seperti kode kamu) =====
-# def convert_relative_time(relative_str: str):
-#     if not relative_str:
-#         return None
+# ===== Fungsi konversi waktu relatif → absolut (sama seperti kode kamu) =====
+def convert_relative_time(relative_str: str):
+    if not relative_str:
+        return None
 
-#     text = relative_str.lower()
-#     today = datetime.today()
-#     try:
-#         if "menit" in text:
-#             minutes = int(re.search(r"\d+", text).group())
-#             return (today - timedelta(minutes=minutes)).isoformat()
-#         elif "jam" in text:
-#             hours = int(re.search(r"\d+", text).group())
-#             return (today - timedelta(hours=hours)).isoformat()
-#         elif "hari" in text:
-#             days = int(re.search(r"\d+", text).group())
-#             return (today - timedelta(days=days)).isoformat()
-#         elif "kemarin" in text:
-#             return (today - timedelta(days=1)).isoformat()
-#         elif "minggu" in text:
-#             weeks = int(re.search(r"\d+", text).group())
-#             return (today - timedelta(weeks=weeks)).isoformat()
-#         elif "bulan" in text:
-#             match = re.search(r"\d+", text)
-#             months = int(match.group()) if match else 1
-#             month = today.month - months
-#             year = today.year
-#             while month <= 0:
-#                 month += 12
-#                 year -= 1
-#             day = min(today.day, 28)
-#             return today.replace(year=year, month=month, day=day).isoformat()
-#         elif "setahun" in text:
-#             day = min(today.day, 28)
-#             return today.replace(year=today.year - 1, day=day).isoformat()
-#         elif "tahun" in text:
-#             years = int(re.search(r"\d+", text).group())
-#             day = min(today.day, 28)
-#             return today.replace(year=today.year - years, day=day).isoformat()
-#         elif "baru saja" in text or "sekarang" in text:
-#             return today.isoformat()
-#     except Exception:
-#         return None
+    text = relative_str.lower()
+    today = datetime.today()
+    try:
+        if "menit" in text:
+            minutes = int(re.search(r"\d+", text).group())
+            return (today - timedelta(minutes=minutes)).isoformat()
+        elif "jam" in text:
+            hours = int(re.search(r"\d+", text).group())
+            return (today - timedelta(hours=hours)).isoformat()
+        elif "hari" in text:
+            days = int(re.search(r"\d+", text).group())
+            return (today - timedelta(days=days)).isoformat()
+        elif "kemarin" in text:
+            return (today - timedelta(days=1)).isoformat()
+        elif "minggu" in text:
+            weeks = int(re.search(r"\d+", text).group())
+            return (today - timedelta(weeks=weeks)).isoformat()
+        elif "bulan" in text:
+            match = re.search(r"\d+", text)
+            months = int(match.group()) if match else 1
+            month = today.month - months
+            year = today.year
+            while month <= 0:
+                month += 12
+                year -= 1
+            day = min(today.day, 28)
+            return today.replace(year=year, month=month, day=day).isoformat()
+        elif "setahun" in text:
+            day = min(today.day, 28)
+            return today.replace(year=today.year - 1, day=day).isoformat()
+        elif "tahun" in text:
+            years = int(re.search(r"\d+", text).group())
+            day = min(today.day, 28)
+            return today.replace(year=today.year - years, day=day).isoformat()
+        elif "baru saja" in text or "sekarang" in text:
+            return today.isoformat()
+    except Exception:
+        return None
 
-#     return None
+    return None
 
 # # ===== Fungsi utama crawling =====
 # def crawl_gmaps_reviews(limit: int = 150) -> int:
