@@ -89,9 +89,9 @@ def crawl_gmaps_reviews(limit: int = 20) -> int:
             continue
 
         # Cek duplikat
-        exists = supabase.table("comments").select("id").eq("comment", comment_text).execute()
-        if exists.data:
-            continue
+        # exists = supabase.table("comments").select("id").eq("comment", comment_text).execute()
+        # if exists.data:
+        #     continue
 
         data = {
             "platform": "gmaps",
