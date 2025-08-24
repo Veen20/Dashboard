@@ -117,7 +117,7 @@ def crawl_gmaps_reviews(limit: int = 150) -> int:
 
         data = {
             "platform": "gmaps",
-            "username": username or "Anonymous",
+            "username": "Anonymous",
             "comment": comment_text,
             "created_at": datetime.now().isoformat(),
             "sentiment": None,
