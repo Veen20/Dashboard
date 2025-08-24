@@ -1,10 +1,10 @@
-# z# crawling_gmaps_serpapi.py
-# import logging
-# import re
-# from datetime import datetime, timedelta
-# from supabase import create_client
-# import streamlit as st
-# from serpapi import GoogleSearch
+z# crawling_gmaps_serpapi.py
+import logging
+import re
+from datetime import datetime, timedelta
+from supabase import create_client
+import streamlit as st
+from serpapi import GoogleSearch
 
 # # ====== Konfigurasi ======
 # PLACE_ID = "ChIJoY-1r-Z1Oy4R15M3KUcaPLg"  # ganti dengan Place ID Google Maps Samsat UPTB Palembang 1
