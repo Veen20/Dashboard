@@ -15,6 +15,10 @@ from config import SUPABASE_URL, SUPABASE_KEY
 URL = "https://www.google.com/maps/place/Samsat+UPTB+Palembang+1/@-2.9870757,104.7412692,17z/data=!4m8!3m7!1s0x2e3b75e6afb58fa1:0xb83c1a47293793d7!8m2!3d-2.9870757!4d104.7438441!9m1!1b1!16s%2Fg%2F11c6rj50mr?entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D"
 
 # Supabase client
+# Ambil secrets dari Streamlit Cloud
+SUPABASE_URL = st.secrets["SUPABASE_URL"]
+SUPABASE_KEY = st.secrets["SUPABASE_KEY"]
+
 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 # Logging
