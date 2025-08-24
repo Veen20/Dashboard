@@ -540,7 +540,7 @@ with tab_visual:
         st.info("Belum bisa membuat heatmap — kolom waktu tidak lengkap.")
     else:
         tmp = df_f.dropna(subset=["time_used"]).copy()
-        tmp["weekday"] = tmp["time_used"].dt.day_name(locale="en_US")  # konsisten
+        tmp["weekday"] = tmp["time_used"].dt.weekday.map(lambda x: calendar.day_name[x])# konsisten
         order = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
         tmp["weekday"] = pd.Categorical(tmp["weekday"], categories=order, ordered=True)
         tmp["hour"] = tmp["time_used"].dt.hour
