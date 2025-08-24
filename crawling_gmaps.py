@@ -72,7 +72,7 @@ def crawl_gmaps_reviews(limit: int = 150) -> int:
     params = {
         "engine": "google_maps_reviews",
         "type": "place",
-        "place_id": PLACE_ID,
+        "data_id": PLACE_ID,
         "api_key": SERPAPI_KEY
     }
     search = GoogleSearch(params)
