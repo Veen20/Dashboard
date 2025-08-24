@@ -24,7 +24,9 @@ from supabase import create_client
 from transformers import AutoTokenizer, AutoModelForSequenceClassification, TextClassificationPipeline
 
 from crawling_gmaps import crawl_gmaps_reviews
-from config import SUPABASE_URL, SUPABASE_KEY
+# Ambil secrets dari Streamlit Cloud
+SUPABASE_URL = st.secrets["SUPABASE_URL"]
+SUPABASE_KEY = st.secrets["SUPABASE_KEY"]
 
 # -----------------------------
 # Page config
