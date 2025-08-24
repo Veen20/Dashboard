@@ -66,6 +66,74 @@ def convert_relative_time(relative_str: str):
     return None
 
 # # ===== Fungsi utama crawling =====
+def crawl_gmaps_reviews(limit: int = 150) -> int:
+    logging.info(f"Mulai crawling hingga {limit} review...")
+
+    params = {
+        "engine": "google_maps_reviews",
+        "type": "place",
+        "place_id": PLACE_ID,
+        "hl": "id",
+        "api_key": SERPAPI_KEY
+    }
+
+    all_reviews = []
+    next_token = None
+
+    while len(all_reviews) < limit:
+        if next_token:
+            params["next_page_token"] = next_token
+
+        search = GoogleSearch(params)
+        result = search.get_dict()
+
+        reviews = result.get("reviews", [])
+        if not reviews:
+            break
+
+        all_reviews.extend(reviews)
+
+        # cek apakah ada halaman berikutnya
+        next_token = result.get("serpapi_pagination", {}).get("next_page_token")
+        if not next_token:
+            break
+
+    reviews = all_reviews[:limit]
+    logging.info(f"Total review berhasil diambil: {len(reviews)}")
+
+    added_count = 0
+    for r in reviews:
+        comment_text = r.get("text") or r.get("snippet") or ""
+        if not comment_text.strip():
+            continue
+
+        username = (
+            r.get("user", {}).get("name")
+            if isinstance(r.get("user"), dict)
+            else r.get("user", "Anonymous")
+        )
+        relative_time = r.get("date") or r.get("relative_time_description")
+        review_time = convert_relative_time(relative_time)
+
+        data = {
+            "platform": "gmaps",
+            "username": username or "Anonymous",
+            "comment": comment_text,
+            "created_at": datetime.now().isoformat(),
+            "sentiment": None,
+            "relative_time": relative_time,
+            "review_time": review_time
+        }
+        try:
+            supabase.table("comments").insert(data).execute()
+            added_count += 1
+        except Exception as e:
+            logging.error(f"Gagal simpan ke Supabase: {e}")
+
+    logging.info(f"Jumlah review baru yang tersimpan: {added_count}")
+    return added_count
+
+
 # def crawl_gmaps_reviews(limit: int = 150) -> int:
 #     logging.info(f"Mulai crawling hingga {limit} review...")
 
@@ -73,7 +141,7 @@ def convert_relative_time(relative_str: str):
 #         "engine": "google_maps_reviews",
 #         "type": "place",
 #         "place_id": PLACE_ID,
-#           "hl": "id",
+#         "hl": "id",
 #         "api_key": SERPAPI_KEY
 #     }
 #     search = GoogleSearch(params)
@@ -82,16 +150,18 @@ def convert_relative_time(relative_str: str):
 
 #     added_count = 0
 #     for r in reviews:
-#         comment_text = r.get("text", "")
-#         relative_time = r.get("relative_time_description")
+#         # Ambil teks review
+#         comment_text = r.get("text") or r.get("snippet") or ""
+#         # Ambil nama user
+#         username = (
+#             r.get("user", {}).get("name")
+#             if isinstance(r.get("user"), dict)
+#             else r.get("user", "Anonymous")
+#         )
+#         relative_time = r.get("date") or r.get("relative_time_description")
 #         review_time = convert_relative_time(relative_time)
 
-#         if not comment_text:
-#             continue
-
-#         # Cek duplikat
-#         exists = supabase.table("comments").select("id").eq("comment", comment_text).execute()
-#         if exists.data:
+#         if not comment_text.strip():
 #             continue
 
 #         data = {
@@ -111,52 +181,3 @@ def convert_relative_time(relative_str: str):
 
 #     logging.info(f"Jumlah review baru yang tersimpan: {added_count}")
 #     return added_count
-
-
-def crawl_gmaps_reviews(limit: int = 150) -> int:
-    logging.info(f"Mulai crawling hingga {limit} review...")
-
-    params = {
-        "engine": "google_maps_reviews",
-        "type": "place",
-        "place_id": PLACE_ID,
-        "hl": "id",
-        "api_key": SERPAPI_KEY
-    }
-    search = GoogleSearch(params)
-    result = search.get_dict()
-    reviews = result.get("reviews", [])[:limit]
-
-    added_count = 0
-    for r in reviews:
-        # Ambil teks review
-        comment_text = r.get("text") or r.get("snippet") or ""
-        # Ambil nama user
-        username = (
-            r.get("user", {}).get("name")
-            if isinstance(r.get("user"), dict)
-            else r.get("user", "Anonymous")
-        )
-        relative_time = r.get("date") or r.get("relative_time_description")
-        review_time = convert_relative_time(relative_time)
-
-        if not comment_text.strip():
-            continue
-
-        data = {
-            "platform": "gmaps",
-            "username": username or "Anonymous",
-            "comment": comment_text,
-            "created_at": datetime.now().isoformat(),
-            "sentiment": None,
-            "relative_time": relative_time,
-            "review_time": review_time
-        }
-        try:
-            supabase.table("comments").insert(data).execute()
-            added_count += 1
-        except Exception as e:
-            logging.error(f"Gagal simpan ke Supabase: {e}")
-
-    logging.info(f"Jumlah review baru yang tersimpan: {added_count}")
-    return added_count
