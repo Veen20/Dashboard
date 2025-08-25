@@ -1,3 +1,4 @@
+
 # crawling_gmaps_serpapi.py
 import logging
 import re
@@ -5,6 +6,11 @@ from datetime import datetime, timedelta
 from supabase import create_client
 import streamlit as st
 from serpapi import GoogleSearch
+
+from transformers import pipeline
+
+# Buat pipeline sentiment-analysis sekali
+pipe = pipeline("sentiment-analysis", model="indobenchmark/indobertweet-sentiment")
 
  
 def clean_text(text):
