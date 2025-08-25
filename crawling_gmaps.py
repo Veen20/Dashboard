@@ -7,9 +7,17 @@ from supabase import create_client
 import streamlit as st
 from serpapi import GoogleSearch
 
-from transformers import pipeline
+from transformers import AutoTokenizer, AutoModelForSequenceClassification, TextClassificationPipeline
+import streamlit as st
 
-# pipe = pipeline("sentiment-analysis", model="indobenchmark/indobertweet-sentiment")
+@st.cache_resource(show_spinner=False)
+def load_sentiment_pipeline():
+    model_name = "Aardiiiiy/indobertweet-base-Indonesian-sentiment-analysis"
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    model = AutoModelForSequenceClassification.from_pretrained(model_name)
+    return TextClassificationPipeline(model=model, tokenizer=tokenizer, return_all_scores=False)
+
+pipe = load_sentiment_pipeline()
 
 
  
