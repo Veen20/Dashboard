@@ -561,7 +561,7 @@ with tab_comments:
     if df_f.empty:
         st.info("Tidak ada komentar untuk ditampilkan.")
     else:
-        view = df_f.sort_values("time_used", ascending=False).head(60)[["time_used","username","platform","sentiment","comment","relative_time"]]
+        view = df_f.sort_values("time_used", ascending=False).head(15)[["time_used","username","platform","sentiment","comment","relative_time"]]
         for _, row in view.iterrows():
             dt = row["time_used"]
             dt_s = dt.strftime("%d %b %Y %H:%M") if pd.notna(dt) else "-"
