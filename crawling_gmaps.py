@@ -9,7 +9,7 @@ from serpapi import GoogleSearch
 
 from transformers import pipeline
 
-pipe = pipeline("sentiment-analysis", model="indobenchmark/indobertweet-sentiment")
+# pipe = pipeline("sentiment-analysis", model="indobenchmark/indobertweet-sentiment")
 
 
  
