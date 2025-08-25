@@ -6,6 +6,17 @@ from supabase import create_client
 import streamlit as st
 from serpapi import GoogleSearch
 
+ Tambahkan fungsi ini di atas sebelum digunakan
+def clean_text(text):
+    """Membersihkan teks dari karakter yang tidak diperlukan."""
+    if not isinstance(text, str):
+        return ""
+    # Hilangkan karakter selain huruf, angka, dan spasi
+    text = re.sub(r"[^a-zA-Z0-9\s]", " ", text)
+    # Hilangkan spasi berlebih
+    text = re.sub(r"\s+", " ", text).strip()
+    return text
+    
 # ====== Konfigurasi ======
 PLACE_ID = "ChIJoY-1r-Z1Oy4R15M3KUcaPLg"  # ganti dengan Place ID Google Maps Samsat UPTB Palembang 1
 
