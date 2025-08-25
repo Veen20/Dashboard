@@ -6,7 +6,7 @@ from supabase import create_client
 import streamlit as st
 from serpapi import GoogleSearch
 
- Tambahkan fungsi ini di atas sebelum digunakan
+ 
 def clean_text(text):
     """Membersihkan teks dari karakter yang tidak diperlukan."""
     if not isinstance(text, str):
