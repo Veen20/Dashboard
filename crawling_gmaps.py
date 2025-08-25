@@ -9,8 +9,7 @@ from serpapi import GoogleSearch
 
 from transformers import pipeline
 
-# Buat pipeline sentiment-analysis sekali
-pipe = pipeline("sentiment-analysis", model="indobenchmark/indobertweet-sentiment")
+
 
  
 def clean_text(text):
