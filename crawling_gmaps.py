@@ -9,6 +9,7 @@ from serpapi import GoogleSearch
 
 from transformers import pipeline
 
+pipe = pipeline("sentiment-analysis", model="indobenchmark/indobertweet-sentiment")
 
 
  
@@ -124,8 +125,10 @@ def crawl_gmaps_reviews(limit: int = 10) -> int:
         if not comment_text.strip():
             continue
 
-        sentiment_result = predict_sentiment(pipe, [comment_text])
-        
+        sentiment_result = pipe([comment_text])[0]
+        sentiment_label = sentiment_result['label']
+        sentiment_score = sentiment_result['score']
+     
         username = (
             r.get("user", {}).get("name")
             if isinstance(r.get("user"), dict)
