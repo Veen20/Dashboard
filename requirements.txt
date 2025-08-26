@@ -13,7 +13,9 @@ dateparser>=1.1.8
 requests>=2.28.2
 
 # ML & NLP
-torch==2.1.0
+#torch==2.1.0
+torch==2.1.0+cpu
+
 transformers==4.45.1
 # serpapi==2.6.3
 
