@@ -198,9 +198,9 @@ def predict_sentiment(pipe, texts: List[str]) -> List[str]:
 def analyze_and_update_reviews():
     data = supabase.table("comments").select("*").execute()
     for row in data.data:
-        if not row.get("sentimen"):  # hanya update yg kosong
-            sentiment = predict_sentiment(row["comment"])
-            supabase.table("comments").update({"sentimen": sentiment}).eq("id", row["id"]).execute()
+        if not row.get("sentiment"):  # hanya update yg kosong
+            sentiment = predict_sentiment([row["comment"]])[0]
+            supabase.table("comments").update({"sentiment": sentiment}).eq("id", row["id"]).execute()
 # --------------------------    
 
 def badge_html(sent: str) -> str:
