@@ -122,7 +122,7 @@ def crawl_gmaps_reviews(limit: int = 10) -> int:
             continue
 
         # Ambil hanya label, tanpa score
-        sentiment_result = pipe(comment_text)[0]
+        sentiment_result = pipe(comment_text)
         sentiment_label = sentiment_result["label"]
 
         username = (
