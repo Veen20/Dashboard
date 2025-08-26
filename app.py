@@ -24,6 +24,11 @@ import streamlit as st
 from supabase import create_client
 from transformers import AutoTokenizer, AutoModelForSequenceClassification, TextClassificationPipeline
 
+import numpy as np
+import torch
+st.write(f"Numpy version: {np.__version__}")
+st.write(f"Torch version: {torch.__version__}")
+
 from crawling_gmaps import crawl_gmaps_reviews
 # Ambil secrets dari Streamlit Cloud
 SUPABASE_URL = st.secrets["SUPABASE_URL"]
@@ -190,6 +195,7 @@ def fetch_comments() -> pd.DataFrame:
 def map_label(label: str) -> str:
     m = {"positive":"Positif","neutral":"Netral","negative":"Negatif"}
     return m.get((label or "").lower(), "Netral")
+    
 
 def predict_sentiment(pipe, texts: List[str]) -> List[str]:
     preds = pipe(texts, truncation=True)
