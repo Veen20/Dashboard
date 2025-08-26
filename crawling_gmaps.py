@@ -123,7 +123,7 @@ def crawl_gmaps_reviews(limit: int = 10) -> int:
 
         # Ambil hanya label, tanpa score
         sentiment_result = pipe(comment_text)[0]
-        sentiment_label = sentiment_result['label']
+        sentiment_label = sentiment_result["label"]
 
         username = (
             r.get("user", {}).get("name")
