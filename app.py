@@ -196,11 +196,11 @@ def predict_sentiment(pipe, texts: List[str]) -> List[str]:
     return [map_label(p["label"]) for p in preds] 
     
 def analyze_and_update_reviews():
-    data = supabase.table("reviews").select("*").execute()
+    data = supabase.table("comments").select("*").execute()
     for row in data.data:
         if not row.get("sentimen"):  # hanya update yg kosong
             sentiment = predict_sentiment(row["comment"])
-            supabase.table("reviews").update({"sentimen": sentiment}).eq("id", row["id"]).execute()
+            supabase.table("comments").update({"sentimen": sentiment}).eq("id", row["id"]).execute()
 # --------------------------    
 
 def badge_html(sent: str) -> str:
