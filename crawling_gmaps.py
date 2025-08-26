@@ -1,5 +1,3 @@
-
-# crawling_gmaps_serpapi.py
 import logging
 import re
 from datetime import datetime, timedelta
@@ -8,7 +6,6 @@ import streamlit as st
 from serpapi import GoogleSearch
 
 from transformers import AutoTokenizer, AutoModelForSequenceClassification, TextClassificationPipeline
-import streamlit as st
 
 @st.cache_resource(show_spinner=False)
 def load_sentiment_pipeline():
@@ -19,32 +16,25 @@ def load_sentiment_pipeline():
 
 pipe = load_sentiment_pipeline()
 
-
- 
 def clean_text(text):
-    """Membersihkan teks dari karakter yang tidak diperlukan."""
     if not isinstance(text, str):
         return ""
-    # Hilangkan karakter selain huruf, angka, dan spasi
     text = re.sub(r"[^a-zA-Z0-9\s]", " ", text)
-    # Hilangkan spasi berlebih
     text = re.sub(r"\s+", " ", text).strip()
     return text
     
 # ====== Konfigurasi ======
-PLACE_ID = "ChIJoY-1r-Z1Oy4R15M3KUcaPLg"  # ganti dengan Place ID Google Maps Samsat UPTB Palembang 1
+PLACE_ID = "ChIJoY-1r-Z1Oy4R15M3KUcaPLg"
 
-# Supabase client
 SUPABASE_URL = st.secrets["SUPABASE_URL"]
 SUPABASE_KEY = st.secrets["SUPABASE_KEY"]
 SERPAPI_KEY = st.secrets["SERPAPI_KEY"]
 
 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
-# Logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
-# ===== Fungsi konversi waktu relatif → absolut (sama seperti kode kamu) =====
+# ===== Fungsi konversi waktu relatif → absolut =====
 def convert_relative_time(relative_str: str):
     if not relative_str:
         return None
@@ -87,10 +77,9 @@ def convert_relative_time(relative_str: str):
             return today.isoformat()
     except Exception:
         return None
-
     return None
 
-# # ===== Fungsi utama crawling =====
+# ===== Fungsi utama crawling =====
 def crawl_gmaps_reviews(limit: int = 10) -> int:
     logging.info(f"Mulai crawling hingga {limit} review...")
 
@@ -118,7 +107,6 @@ def crawl_gmaps_reviews(limit: int = 10) -> int:
 
         all_reviews.extend(reviews)
 
-        # cek apakah ada halaman berikutnya
         next_token = result.get("serpapi_pagination", {}).get("next_page_token")
         if not next_token:
             break
@@ -133,10 +121,10 @@ def crawl_gmaps_reviews(limit: int = 10) -> int:
         if not comment_text.strip():
             continue
 
-        sentiment_result = pipe([comment_text])[0]
+        # Ambil hanya label, tanpa score
+        sentiment_result = pipe(comment_text)[0]
         sentiment_label = sentiment_result['label']
-        sentiment_score = sentiment_result['score']
-     
+
         username = (
             r.get("user", {}).get("name")
             if isinstance(r.get("user"), dict)
@@ -147,10 +135,10 @@ def crawl_gmaps_reviews(limit: int = 10) -> int:
 
         data = {
             "platform": "gmaps",
-            "username": "Anonymous",
+            "username": username or "Anonymous",
             "comment": comment_text,
             "created_at": datetime.now().isoformat(),
-            "sentiment": None,
+            "sentiment": sentiment_label,   # hanya label
             "relative_time": relative_time,
             "review_time": review_time
         }
@@ -163,8 +151,99 @@ def crawl_gmaps_reviews(limit: int = 10) -> int:
     logging.info(f"Jumlah review baru yang tersimpan: {added_count}")
     return added_count
 
+# # crawling_gmaps_serpapi.py
+# import logging
+# import re
+# from datetime import datetime, timedelta
+# from supabase import create_client
+# import streamlit as st
+# from serpapi import GoogleSearch
 
-# def crawl_gmaps_reviews(limit: int = 150) -> int:
+# from transformers import AutoTokenizer, AutoModelForSequenceClassification, TextClassificationPipeline
+# import streamlit as st
+
+# @st.cache_resource(show_spinner=False)
+# def load_sentiment_pipeline():
+#     model_name = "Aardiiiiy/indobertweet-base-Indonesian-sentiment-analysis"
+#     tokenizer = AutoTokenizer.from_pretrained(model_name)
+#     model = AutoModelForSequenceClassification.from_pretrained(model_name)
+#     return TextClassificationPipeline(model=model, tokenizer=tokenizer, return_all_scores=False)
+
+# pipe = load_sentiment_pipeline()
+
+
+ 
+# def clean_text(text):
+#     """Membersihkan teks dari karakter yang tidak diperlukan."""
+#     if not isinstance(text, str):
+#         return ""
+#     # Hilangkan karakter selain huruf, angka, dan spasi
+#     text = re.sub(r"[^a-zA-Z0-9\s]", " ", text)
+#     # Hilangkan spasi berlebih
+#     text = re.sub(r"\s+", " ", text).strip()
+#     return text
+    
+# # ====== Konfigurasi ======
+# PLACE_ID = "ChIJoY-1r-Z1Oy4R15M3KUcaPLg"  # ganti dengan Place ID Google Maps Samsat UPTB Palembang 1
+
+# # Supabase client
+# SUPABASE_URL = st.secrets["SUPABASE_URL"]
+# SUPABASE_KEY = st.secrets["SUPABASE_KEY"]
+# SERPAPI_KEY = st.secrets["SERPAPI_KEY"]
+
+# supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
+
+# # Logging
+# logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+
+# # ===== Fungsi konversi waktu relatif → absolut (sama seperti kode kamu) =====
+# def convert_relative_time(relative_str: str):
+#     if not relative_str:
+#         return None
+
+#     text = relative_str.lower()
+#     today = datetime.today()
+#     try:
+#         if "menit" in text:
+#             minutes = int(re.search(r"\d+", text).group())
+#             return (today - timedelta(minutes=minutes)).isoformat()
+#         elif "jam" in text:
+#             hours = int(re.search(r"\d+", text).group())
+#             return (today - timedelta(hours=hours)).isoformat()
+#         elif "hari" in text:
+#             days = int(re.search(r"\d+", text).group())
+#             return (today - timedelta(days=days)).isoformat()
+#         elif "kemarin" in text:
+#             return (today - timedelta(days=1)).isoformat()
+#         elif "minggu" in text:
+#             weeks = int(re.search(r"\d+", text).group())
+#             return (today - timedelta(weeks=weeks)).isoformat()
+#         elif "bulan" in text:
+#             match = re.search(r"\d+", text)
+#             months = int(match.group()) if match else 1
+#             month = today.month - months
+#             year = today.year
+#             while month <= 0:
+#                 month += 12
+#                 year -= 1
+#             day = min(today.day, 28)
+#             return today.replace(year=year, month=month, day=day).isoformat()
+#         elif "setahun" in text:
+#             day = min(today.day, 28)
+#             return today.replace(year=today.year - 1, day=day).isoformat()
+#         elif "tahun" in text:
+#             years = int(re.search(r"\d+", text).group())
+#             day = min(today.day, 28)
+#             return today.replace(year=today.year - years, day=day).isoformat()
+#         elif "baru saja" in text or "sekarang" in text:
+#             return today.isoformat()
+#     except Exception:
+#         return None
+
+#     return None
+
+# # # ===== Fungsi utama crawling =====
+# def crawl_gmaps_reviews(limit: int = 10) -> int:
 #     logging.info(f"Mulai crawling hingga {limit} review...")
 
 #     params = {
@@ -174,15 +253,42 @@ def crawl_gmaps_reviews(limit: int = 10) -> int:
 #         "hl": "id",
 #         "api_key": SERPAPI_KEY
 #     }
-#     search = GoogleSearch(params)
-#     result = search.get_dict()
-#     reviews = result.get("reviews", [])[:limit]
+
+#     all_reviews = []
+#     next_token = None
+
+#     while len(all_reviews) < limit:
+#         if next_token:
+#             params["next_page_token"] = next_token
+
+#         search = GoogleSearch(params)
+#         result = search.get_dict()
+
+#         reviews = result.get("reviews", [])
+#         if not reviews:
+#             break
+
+#         all_reviews.extend(reviews)
+
+#         # cek apakah ada halaman berikutnya
+#         next_token = result.get("serpapi_pagination", {}).get("next_page_token")
+#         if not next_token:
+#             break
+
+#     reviews = all_reviews[:limit]
+#     logging.info(f"Total review berhasil diambil: {len(reviews)}")
 
 #     added_count = 0
 #     for r in reviews:
-#         # Ambil teks review
 #         comment_text = r.get("text") or r.get("snippet") or ""
-#         # Ambil nama user
+#         comment_text = clean_text(comment_text)
+#         if not comment_text.strip():
+#             continue
+
+#         sentiment_result = pipe([comment_text])[0]
+#         sentiment_label = sentiment_result['label']
+#         sentiment_score = sentiment_result['score']
+     
 #         username = (
 #             r.get("user", {}).get("name")
 #             if isinstance(r.get("user"), dict)
@@ -191,12 +297,9 @@ def crawl_gmaps_reviews(limit: int = 10) -> int:
 #         relative_time = r.get("date") or r.get("relative_time_description")
 #         review_time = convert_relative_time(relative_time)
 
-#         if not comment_text.strip():
-#             continue
-
 #         data = {
 #             "platform": "gmaps",
-#             "username": username or "Anonymous",
+#             "username": "Anonymous",
 #             "comment": comment_text,
 #             "created_at": datetime.now().isoformat(),
 #             "sentiment": None,
@@ -211,3 +314,5 @@ def crawl_gmaps_reviews(limit: int = 10) -> int:
 
 #     logging.info(f"Jumlah review baru yang tersimpan: {added_count}")
 #     return added_count
+
+
