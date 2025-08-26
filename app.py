@@ -413,6 +413,7 @@ if "sentiment" not in df.columns or df["sentiment"].isna().any() or (df["sentime
                 sentiments.extend(predict_sentiment(pipe, texts[i:i+batch]))
             except Exception as e:
                 st.warning(f"Gagal proses batch {i}-{i+batch}: {e}")
+                continue
 
 
         # Update dataframe lokal
