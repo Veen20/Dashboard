@@ -138,29 +138,75 @@ h1,h2,h3,h4,h5,h6 { color: var(--text) !important; }
 # -----------------------------
 # 4️⃣ Purple-Blue Neon Modern
 # -----------------------------
-PURPLE_BLUE_CSS = """
+BRAND_PURPLE_CSS = """
 <style>
 :root {
-    --bg: #e0f2fe;        /* light blue background */
-  --panel: #bae6fd;     /* panel card */
-  --muted: #0284c7;     /* teks minor */
-  --text: #1e3a8a;      /* teks utama */
-  --pos: #16a34a;
-  --neg: #dc2626;
-  --neu: #64748b;
-  --accent: #0ea5e9;
+  --bg: #f3e8ff;        /* soft lavender background */
+  --panel: #e9d5ff;     /* panel card ungu muda */
+  --muted: #7c3aed;     /* teks minor */
+  --text: #5b21b6;      /* teks utama ungu lebih gelap */
+  --pos: #16a34a;       /* hijau untuk positif */
+  --neg: #dc2626;       /* merah untuk negatif */
+  --neu: #6b7280;       /* abu-abu netral */
+  --accent: #a78bfa;    /* aksen ungu terang */
 }
-html, body, [data-testid="stAppViewContainer"] { background: var(--bg); color: var(--text); }
-[data-testid="stSidebar"] { background: #111833; border-right: 1px solid #222244; }
-.card { background: #111833; border-radius: 16px; padding: 14px; border: 1px solid #4444aa; transition: transform 0.2s, box-shadow 0.3s; }
-.card:hover { transform: translateY(-3px); box-shadow: 0 0 15px #aa00ff; }
-.badge-pos { background: rgba(0,240,255,0.15); color: var(--pos); }
-.badge-neg { background: rgba(255,77,109,0.15); color: var(--neg); }
-.badge-neu { background: rgba(192,192,255,0.15); color: var(--neu); }
-.kpi { background: #111833; border-radius: 16px; padding: 14px; border: 1px solid #4444aa; }
-a { color: var(--accent); }
+html, body, [data-testid="stAppViewContainer"] { 
+    background: var(--bg); 
+    color: var(--text); 
+}
+[data-testid="stSidebar"] { 
+    background: var(--panel); 
+    border-right: 1px solid var(--muted); 
+}
+h1,h2,h3,h4,h5,h6 { 
+    color: var(--text) !important; 
+}
+.card { 
+    border: 1px solid var(--muted); 
+    background: var(--panel); 
+    border-radius: 16px; 
+    padding: 14px; 
+    transition: transform 0.2s ease, box-shadow 0.2s ease; 
+}
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.15);
+}
+.badge { 
+    border-radius: 999px; 
+    font-size: 12px; 
+    padding: 3px 10px;
+    transition: transform 0.2s ease;
+}
+.badge-pos { 
+    background: rgba(22,163,74,0.15); 
+    color: var(--pos); 
+}
+.badge-neg { 
+    background: rgba(220,38,38,0.15); 
+    color: var(--neg); 
+}
+.badge-neu { 
+    background: rgba(107,114,128,0.18); 
+    color: var(--neu); 
+}
+button, .stButton > button {
+    background-color: var(--accent);
+    color: #fff;
+    border-radius: 12px;
+    padding: 8px 20px;
+    font-weight: bold;
+    border: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+}
+button:hover, .stButton > button:hover {
+    background-color: #8b5cf6; /* ungu lebih gelap saat hover */
+    transform: translateY(-2px);
+}
 </style>
 """
+
 
 # =============================
 # Terapkan tema
