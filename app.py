@@ -114,13 +114,14 @@ a { color: #93c5fd; }
 BLUE_PURPLE_CSS = """
 <style>
 :root {
-   --bg: #f0f4f8;          /* background abu muda, netral */
-  --panel: #ffffff;        /* panel card putih */
-  --text: #111827;         /* teks utama */
-  --pos: #16a34a;          /* hijau untuk sentimen positif */
-  --neg: #dc2626;          /* merah untuk sentimen negatif */
-  --neu: #64748b;          /* biru keabu-abuan untuk netral */
-  --accent: #2563eb;       /* biru sebagai highlight */
+   --bg: #e0f2fe;        /* light blue background */
+  --panel: #bae6fd;     /* panel card */
+  --muted: #0284c7;     /* teks minor */
+  --text: #1e3a8a;      /* teks utama */
+  --pos: #16a34a;
+  --neg: #dc2626;
+  --neu: #64748b;
+  --accent: #0ea5e9;
 }
 html, body, [data-testid="stAppViewContainer"] { background: var(--bg); color: var(--text); }
 [data-testid="stSidebar"] { background: rgba(40,40,100,0.95); border-right: 1px solid #333366; }
@@ -214,14 +215,14 @@ st.markdown(theme_css[mode], unsafe_allow_html=True)
 # BRAND_BLUE_CSS = """
 # <style>
 # :root {
-#   --bg: #e0f2fe;        /* light blue background */
-#   --panel: #bae6fd;     /* panel card */
-#   --muted: #0284c7;     /* teks minor */
-#   --text: #1e3a8a;      /* teks utama */
-#   --pos: #16a34a;
-#   --neg: #dc2626;
-#   --neu: #64748b;
-#   --accent: #0ea5e9;
+  # --bg: #e0f2fe;        /* light blue background */
+  # --panel: #bae6fd;     /* panel card */
+  # --muted: #0284c7;     /* teks minor */
+  # --text: #1e3a8a;      /* teks utama */
+  # --pos: #16a34a;
+  # --neg: #dc2626;
+  # --neu: #64748b;
+  # --accent: #0ea5e9;
 # }
 # html, body, [data-testid="stAppViewContainer"] { background: var(--bg); color: var(--text); }
 # [data-testid="stSidebar"] { background: var(--panel); border-right: 1px solid #0284c7; }
