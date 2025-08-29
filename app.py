@@ -110,29 +110,6 @@ a { color: #1d4ed8; }
 
 st.markdown(DARK_CSS if mode.startswith("🌙") else LIGHT_CSS, unsafe_allow_html=True)
 
-st.markdown("""
-<style>
-.button-crawl {
-    background-color: #2563eb;  /* biru */
-    color: white;
-    padding: 8px 24px;
-    border-radius: 12px;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-}
-.button-crawl:hover {
-    background-color: #1e40af;  /* biru lebih gelap */
-}
-</style>
-""", unsafe_allow_html=True)
-
-crawl_clicked = st.button("🚀 Crawl Ulasan Terbaru", key="crawl")  # tombol biasa
-
-# Jika mau benar-benar custom HTML button
-# crawl_clicked = st.markdown('<button class="button-crawl">🚀 Crawl Ulasan Terbaru</button>', unsafe_allow_html=True)
-
 
 # -----------------------------
 # Supabase Client
@@ -346,10 +323,13 @@ if st.sidebar.button("🚀 Ambil Ulasan Terbaru dari Google Maps"):
         added = crawl_gmaps_reviews(limit=crawl_limit)
         fetch_comments.clear()  # refresh cache
     if added == 0:
-        st.sidebar.info("ℹ️ Belum ada ulasan terbaru. Data saat ini sudah paling update.")
+        status_msg.info("ℹ️ Belum ada ulasan terbaru. Data saat ini sudah paling update.")
     else:
-        st.sidebar.success(f"✅ {added} ulasan baru berhasil ditambahkan!.")
+        status_msg.success(f"✅ {added} ulasan baru berhasil ditambahkan!.")
     
+    # Hapus pesan setelah 3 detik
+    time.sleep(3)
+    status_msg.empty()
 
 st.sidebar.markdown("---")
 
