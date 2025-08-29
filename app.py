@@ -110,22 +110,18 @@ a { color: #1d4ed8; }
 
 st.markdown(DARK_CSS if mode.startswith("🌙") else LIGHT_CSS, unsafe_allow_html=True)
 
+
 st.markdown("""
 <style>
-/* Tombol Crawl khusus di sidebar */
-div.stButton > button[data-baseweb="button"][key="crawl-btn"] {
-    background-color: #2563eb;  /* biru */
-    color: blue;
-    padding: 8px 20px;
+div.stButton > button {
+    background-color: #2563eb;
+    color: white;
     border-radius: 12px;
-    border: none;
+    padding: 8px 20px;
     font-weight: bold;
-    transition: background-color 0.3s ease;
-    cursor: pointer;
-    width: 100%;
 }
-div.stButton > button[data-baseweb="button"][key="crawl-btn"]:hover {
-    background-color: #1e40af;  /* biru lebih gelap saat hover */
+div.stButton > button:hover {
+    background-color: #1e40af;
 }
 </style>
 """, unsafe_allow_html=True)
