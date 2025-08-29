@@ -114,13 +114,13 @@ a { color: #93c5fd; }
 BLUE_PURPLE_CSS = """
 <style>
 :root {
-   --bg: #0f1f0f;
-  --panel: #122312;
-  --text: #a5f3a5;
-  --pos: #22c55e;
-  --neg: #f43f5e;
-  --neu: #86efac;
-  --accent: #22c55e;
+   --bg: #f0f4f8;          /* background abu muda, netral */
+  --panel: #ffffff;        /* panel card putih */
+  --text: #111827;         /* teks utama */
+  --pos: #16a34a;          /* hijau untuk sentimen positif */
+  --neg: #dc2626;          /* merah untuk sentimen negatif */
+  --neu: #64748b;          /* biru keabu-abuan untuk netral */
+  --accent: #2563eb;       /* biru sebagai highlight */
 }
 html, body, [data-testid="stAppViewContainer"] { background: var(--bg); color: var(--text); }
 [data-testid="stSidebar"] { background: rgba(40,40,100,0.95); border-right: 1px solid #333366; }
