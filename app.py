@@ -26,8 +26,8 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification, Text
 
 import numpy as np
 import torch
-st.write(f"Numpy version: {np.__version__}")
-st.write(f"Torch version: {torch.__version__}")
+# st.write(f"Numpy version: {np.__version__}")
+# st.write(f"Torch version: {torch.__version__}")
 
 from crawling_gmaps import crawl_gmaps_reviews
 # Ambil secrets dari Streamlit Cloud
@@ -321,7 +321,11 @@ if st.sidebar.button("🚀 Crawl Ulasan Terbaru"):
     with st.spinner("Mengambil ulasan dari Google Maps..."):
         added = crawl_gmaps_reviews(limit=crawl_limit)
         fetch_comments.clear()  # refresh cache
-    st.sidebar.success(f"{added} komentar baru dimasukkan.")
+    if added == 0:
+        st.sidebar.info("ℹ️ Belum ada ulasan terbaru. Data saat ini sudah paling update.")
+    else:
+        st.sidebar.success(f"{added} komentar baru dimasukkan.")
+    
 
 st.sidebar.markdown("---")
 
