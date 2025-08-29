@@ -49,7 +49,7 @@ st.set_page_config(
 # mode = st.sidebar.selectbox("Tampilan", ["🌙 Dark", "☀️ Light"], index=0)
 mode = st.sidebar.selectbox(
     "Tampilan", 
-    ["🌙 Dark", "☀️ Light", "🔵 Brand Blue"],  # tambah opsi baru
+    ["🌙 Dark", "☀️ Light", "🔵 Brand Blue", "💜 Modern Dark", "🌸 Modern Light"],  # tambah opsi baru
     index=0
 )
 
@@ -144,12 +144,75 @@ h1,h2,h3,h4,h5,h6 { color: var(--text) !important; }
 .badge-neu { background: rgba(100,116,139,.18); color: var(--neu); }
 </style>
 """
-# st.markdown(BRAND_BLUE_CSS, unsafe_allow_html=True)
 
+# Tema Dark & Light standar
+DARK_CSS = """..."""  # CSS Anda sebelumnya
+LIGHT_CSS = """...""" # CSS Anda sebelumnya
+
+# Tema Modern Dark
+MODERN_DARK_CSS = """
+<style>
+:root {
+  --bg: #0a0f2c;        /* dark navy */
+  --panel: #111833;     /* panel gelap */
+  --muted: #a3a3ff;     /* text muted */
+  --text: #e0e0ff;      /* text utama */
+  --pos: #00f0ff;       /* neon cyan */
+  --neg: #ff4d6d;       /* neon pink */
+  --neu: #c0c0ff;       /* netral lembut */
+  --accent: #aa00ff;    /* ungu neon */
+}
+html, body, [data-testid="stAppViewContainer"] { background: var(--bg); color: var(--text); }
+[data-testid="stSidebar"] { background: #111833; border-right: 1px solid #333366; }
+.card { border: 1px solid #333366; background: var(--panel); border-radius: 18px; padding: 14px; transition: transform 0.2s; }
+.card:hover { transform: scale(1.02); }
+.badge-pos { background: rgba(0,240,255,0.15); color: var(--pos); }
+.badge-neg { background: rgba(255,77,109,0.15); color: var(--neg); }
+.badge-neu { background: rgba(192,192,255,0.15); color: var(--neu); }
+.kpi { background: var(--panel); border: 1px solid #333366; border-radius: 16px; padding: 14px; }
+a { color: var(--accent); }
+</style>
+"""
+
+# Tema Modern Light
+MODERN_LIGHT_CSS = """
+<style>
+:root {
+  --bg: #f0f4ff;       /* pastel biru */
+  --panel: #ffffff;     /* panel putih */
+  --muted: #6b7280;     /* text muted */
+  --text: #111827;      /* text utama */
+  --pos: #0d9488;       /* cyan gelap */
+  --neg: #dc2626;       /* merah */
+  --neu: #64748b;       /* netral */
+  --accent: #6366f1;    /* ungu pastel */
+}
+html, body, [data-testid="stAppViewContainer"] { background: var(--bg); color: var(--text); }
+[data-testid="stSidebar"] { background: #ffffff; border-right: 1px solid #e5e7eb; }
+.card { border: 1px solid #e5e7eb; background: var(--panel); border-radius: 12px; padding: 14px; transition: transform 0.2s; }
+.card:hover { transform: scale(1.02); }
+.badge-pos { background: rgba(13,148,136,0.15); color: var(--pos); }
+.badge-neg { background: rgba(220,38,38,0.15); color: var(--neg); }
+.badge-neu { background: rgba(100,116,139,0.12); color: var(--neu); }
+.kpi { background: var(--panel); border: 1px solid #e5e7eb; border-radius: 12px; padding: 14px; }
+a { color: var(--accent); }
+</style>
+"""
+
+# Terapkan CSS sesuai mode
 if mode.startswith("🌙"):
     st.markdown(DARK_CSS, unsafe_allow_html=True)
 elif mode.startswith("☀️"):
     st.markdown(LIGHT_CSS, unsafe_allow_html=True)
+elif mode.startswith("💜"):
+    st.markdown(MODERN_DARK_CSS, unsafe_allow_html=True)
+elif mode.startswith("🌸"):
+    st.markdown(MODERN_LIGHT_CSS, unsafe_allow_html=True)
+
+# if mode.startswith("🌙"):
+#     st.markdown(DARK_CSS, unsafe_allow_html=True)
+# elif mode.startswith("☀️"):
+#     st.markdown(LIGHT_CSS, unsafe_allow_html=True)
 else:
     st.markdown(BRAND_BLUE_CSS, unsafe_allow_html=True)
 
