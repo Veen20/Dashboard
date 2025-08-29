@@ -46,7 +46,13 @@ st.set_page_config(
 # -----------------------------
 # Theme Toggle (Light/Dark)
 # -----------------------------
-mode = st.sidebar.selectbox("Tampilan", ["🌙 Dark", "☀️ Light"], index=0)
+# mode = st.sidebar.selectbox("Tampilan", ["🌙 Dark", "☀️ Light"], index=0)
+mode = st.sidebar.selectbox(
+    "Tampilan", 
+    ["🌙 Dark", "☀️ Light", "🔵 Brand Blue"],  # tambah opsi baru
+    index=0
+)
+
 
 DARK_CSS = """
 <style>
@@ -116,7 +122,38 @@ a { color: #1d4ed8; }
 </style>
 """
 
-st.markdown(DARK_CSS if mode.startswith("🌙") else LIGHT_CSS, unsafe_allow_html=True)
+BRAND_BLUE_CSS = """
+<style>
+:root {
+  --bg: #e0f2fe;        /* light blue background */
+  --panel: #bae6fd;     /* panel card */
+  --muted: #0284c7;     /* teks minor */
+  --text: #1e3a8a;      /* teks utama */
+  --pos: #16a34a;
+  --neg: #dc2626;
+  --neu: #64748b;
+  --accent: #0ea5e9;
+}
+html, body, [data-testid="stAppViewContainer"] { background: var(--bg); color: var(--text); }
+[data-testid="stSidebar"] { background: var(--panel); border-right: 1px solid #0284c7; }
+h1,h2,h3,h4,h5,h6 { color: var(--text) !important; }
+.card { border: 1px solid #0284c7; background: var(--panel); border-radius: 14px; padding: 14px; }
+.badge { border-radius: 999px; font-size: 12px; }
+.badge-pos { background: rgba(22,163,74,.15); color: var(--pos); }
+.badge-neg { background: rgba(220,38,38,.15); color: var(--neg); }
+.badge-neu { background: rgba(100,116,139,.18); color: var(--neu); }
+</style>
+"""
+# st.markdown(BRAND_BLUE_CSS, unsafe_allow_html=True)
+
+if mode.startswith("🌙"):
+    st.markdown(DARK_CSS, unsafe_allow_html=True)
+elif mode.startswith("☀️"):
+    st.markdown(LIGHT_CSS, unsafe_allow_html=True)
+else:
+    st.markdown(BRAND_BLUE_CSS, unsafe_allow_html=True)
+
+# st.markdown(DARK_CSS if mode.startswith("🌙") else LIGHT_CSS, unsafe_allow_html=True)
 
 
 st.markdown("""
