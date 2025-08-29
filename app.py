@@ -49,7 +49,7 @@ st.set_page_config(
 # mode = st.sidebar.selectbox("Tampilan", ["🌙 Dark", "☀️ Light"], index=0)
 mode = st.sidebar.selectbox(
     "Tampilan", 
-    ["🌙 Dark", "🔵 Brand Blue", "🌸 Modern Light"],  # tambah opsi baru
+    ["🔵BLUE_PURPLE_CSS", "🟣PURPLE_BLUE_CSS", "🌙 Dark", "🩵 Brand Blue", "🌸 Modern Light"],  # tambah opsi baru
     index=0
 )
 
@@ -134,16 +134,98 @@ a { color: var(--accent); }
 </style>
 """
 
+# =============================
+# 1️⃣ Blue-Purple Gradient (Ungu kebiruan)
+# =============================
+BLUE_PURPLE_CSS = """
+<style>
+:root {
+  --bg: linear-gradient(135deg, #4f46e5, #0ea5e9); /* biru keunguan */
+  --panel: rgba(30, 30, 80, 0.9);
+  --text: #f0f0ff;
+  --pos: #5ac8fa;
+  --neg: #ff6b6b;
+  --neu: #c5c5ff;
+  --accent: #9b59b6;
+}
+html, body, [data-testid="stAppViewContainer"] { 
+  background: var(--bg); 
+  color: var(--text); 
+}
+[data-testid="stSidebar"] { 
+  background: rgba(40, 40, 100, 0.95); 
+  border-right: 1px solid #333366; 
+}
+.card { 
+  background: rgba(40, 40, 100, 0.8); 
+  border-radius: 16px; 
+  padding: 14px; 
+  border: 1px solid #5555aa; 
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card:hover { 
+  transform: translateY(-3px); 
+  box-shadow: 0 0 20px rgba(155, 89, 182, 0.6); 
+}
+.badge-pos { background: rgba(90,200,250,0.2); color: var(--pos); }
+.badge-neg { background: rgba(255,107,107,0.2); color: var(--neg); }
+.badge-neu { background: rgba(197,197,255,0.2); color: var(--neu); }
+.kpi { background: rgba(40,40,100,0.8); border-radius: 16px; padding: 14px; border: 1px solid #5555aa; }
+a { color: var(--accent); }
+</style>
+"""
+
+# =============================
+# 2️⃣ Purple-Blue Neon Modern (Biru keunguan)
+# =============================
+PURPLE_BLUE_CSS = """
+<style>
+:root {
+  --bg: #0a0f2c;
+  --panel: #111833;
+  --text: #e0e0ff;
+  --pos: #00f0ff;
+  --neg: #ff4d6d;
+  --neu: #c0c0ff;
+  --accent: #aa00ff;
+}
+html, body, [data-testid="stAppViewContainer"] { 
+  background: var(--bg); 
+  color: var(--text); 
+}
+[data-testid="stSidebar"] { 
+  background: #111833; 
+  border-right: 1px solid #222244; 
+}
+.card { 
+  background: #111833; 
+  border-radius: 16px; 
+  padding: 14px; 
+  border: 1px solid #4444aa; 
+  transition: transform 0.2s ease, box-shadow 0.3s ease; 
+}
+.card:hover { 
+  transform: translateY(-3px); 
+  box-shadow: 0 0 15px #aa00ff; 
+}
+.badge-pos { background: rgba(0,240,255,0.15); color: var(--pos); }
+.badge-neg { background: rgba(255,77,109,0.15); color: var(--neg); }
+.badge-neu { background: rgba(192,192,255,0.15); color: var(--neu); }
+.kpi { background: #111833; border-radius: 16px; padding: 14px; border: 1px solid #4444aa; }
+a { color: var(--accent); }
+</style>
+"""
+
 # Terapkan CSS sesuai mode
 if mode.startswith("🌙"):
     st.markdown(DARK_CSS, unsafe_allow_html=True)
 elif mode.startswith("🌸"):
     st.markdown(MODERN_LIGHT_CSS, unsafe_allow_html=True)
 
-# if mode.startswith("🌙"):
-#     st.markdown(DARK_CSS, unsafe_allow_html=True)
-# elif mode.startswith("☀️"):
-#     st.markdown(LIGHT_CSS, unsafe_allow_html=True)
+if mode.startswith("🟣"):
+    st.markdown(PURPLE_BLUE_CSS, unsafe_allow_html=True)
+elif mode.startswith("🔵"):
+    st.markdown(BLUE_PURPLE_CSS, unsafe_allow_html=True)
 else:
     st.markdown(BRAND_BLUE_CSS, unsafe_allow_html=True)
 
