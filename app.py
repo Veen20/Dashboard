@@ -224,7 +224,7 @@ elif mode.startswith("🌸"):
 
 if mode.startswith("🟣"):
     st.markdown(PURPLE_BLUE_CSS, unsafe_allow_html=True)
-elif mode.startswith("🔵"):
+if mode.startswith("🔵"):
     st.markdown(BLUE_PURPLE_CSS, unsafe_allow_html=True)
 else:
     st.markdown(BRAND_BLUE_CSS, unsafe_allow_html=True)
