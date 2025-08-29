@@ -96,7 +96,15 @@ h1,h2,h3,h4,h5,h6 { color: #111827 !important; }
 hr { border-color: #e5e7eb; }
 .block-container { padding-top: 1.2rem; }
 .card { border: 1px solid #e5e7eb; background: var(--panel); border-radius: 12px; padding: 14px; }
+.card:hover {
+    transform: scale(1.02);
+    transition: transform 0.2s ease;
+}
 .badge { padding: 3px 10px; border-radius: 999px; font-weight: 600; font-size: 12px; }
+.badge:hover {
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+}
 .badge-pos { background: rgba(22,163,74,.12); color: var(--pos); }
 .badge-neg { background: rgba(220,38,38,.12); color: var(--neg); }
 .badge-neu { background: rgba(100,116,139,.12); color: var(--neu); }
