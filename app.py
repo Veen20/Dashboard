@@ -115,7 +115,7 @@ st.markdown("""
 /* Tombol Crawl khusus di sidebar */
 div.stButton > button[data-baseweb="button"][key="crawl-btn"] {
     background-color: #2563eb;  /* biru */
-    color: white;
+    color: blue;
     padding: 8px 20px;
     border-radius: 12px;
     border: none;
