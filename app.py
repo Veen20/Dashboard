@@ -52,7 +52,7 @@ st.set_page_config(
 
 mode = st.sidebar.selectbox(
     "Tampilan", 
-    ["☀️ Light", "🌙 Dark", "🩵Brand blue", "💜 Purple"], 
+    ["☀️ Light", "🌙 Dark", "🩵 Brand blue", "💜 Purple"], 
     index=0
 )
 
