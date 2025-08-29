@@ -23,7 +23,7 @@ import plotly.express as px
 import streamlit as st
 from supabase import create_client
 from transformers import AutoTokenizer, AutoModelForSequenceClassification, TextClassificationPipeline
-
+import time 
 import numpy as np
 import torch
 # st.write(f"Numpy version: {np.__version__}")
@@ -317,14 +317,14 @@ st.sidebar.caption("Atur crawling & filter data")
 # Crawl controls
 st.sidebar.subheader("Crawling")
 crawl_limit = st.sidebar.slider("Limit review per crawl", 5, 50, 10, step=5)
-if st.sidebar.button("🚀 Crawl Ulasan Terbaru"):
+if st.sidebar.button("🚀 Ambil Ulasan Terbaru dari Google Maps"):
     with st.spinner("Mengambil ulasan dari Google Maps..."):
         added = crawl_gmaps_reviews(limit=crawl_limit)
         fetch_comments.clear()  # refresh cache
     if added == 0:
         st.sidebar.info("ℹ️ Belum ada ulasan terbaru. Data saat ini sudah paling update.")
     else:
-        st.sidebar.success(f"{added} komentar baru dimasukkan.")
+        st.sidebar.success(f"{added} ulasan baru berhasil ditambahkan!.")
     
 
 st.sidebar.markdown("---")
@@ -391,7 +391,9 @@ with st.spinner("Memuat model sentimen…"):
 
 # Prediksi & simpan ke Supabase bila kolom sentiment kosong / masih null
 if "sentiment" not in df.columns or df["sentiment"].isna().any() or (df["sentiment"] == "").any():
-    st.info("🔄 Menjalankan analisis sentimen untuk komentar baru...")
+    msg = st.empty()  # placeholder untuk pesan UI
+    msg.info("🔄 Menjalankan analisis sentimen untuk komentar baru...")
+    # st.info("🔄 Menjalankan analisis sentimen untuk komentar baru...")
 
     # Pastikan kolom 'sentiment' ada
     if "sentiment" not in df.columns:
@@ -421,7 +423,12 @@ if "sentiment" not in df.columns or df["sentiment"].isna().any() or (df["sentime
             for idx, sent in zip(df.loc[mask_new, "id"], sentiments):
                 supabase.table("comments").update({"sentiment": sent}).eq("id", idx).execute()
 
-        st.success(f"✅ {len(sentiments)} komentar baru berhasil dianalisis & disimpan ke Supabase.")
+        msg.success(f"✅ {len(sentiments)} komentar baru berhasil dianalisis & disimpan ke Supabase.")
+
+        # Hapus pesan setelah 5 detik
+        time.sleep(5)
+        msg.empty()
+        # st.success(f"✅ {len(sentiments)} komentar baru berhasil dianalisis & disimpan ke Supabase.")
 
 # -----------------------------
 # Apply filters (berdasar review_time -> fallback ke created_at)
