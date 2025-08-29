@@ -110,6 +110,26 @@ a { color: #1d4ed8; }
 
 st.markdown(DARK_CSS if mode.startswith("🌙") else LIGHT_CSS, unsafe_allow_html=True)
 
+st.markdown("""
+<style>
+/* Tombol Crawl khusus di sidebar */
+div.stButton > button[data-baseweb="button"][key="crawl-btn"] {
+    background-color: #2563eb;  /* biru */
+    color: white;
+    padding: 8px 20px;
+    border-radius: 12px;
+    border: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+    width: 100%;
+}
+div.stButton > button[data-baseweb="button"][key="crawl-btn"]:hover {
+    background-color: #1e40af;  /* biru lebih gelap saat hover */
+}
+</style>
+""", unsafe_allow_html=True)
+
 
 # -----------------------------
 # Supabase Client
@@ -318,7 +338,7 @@ st.sidebar.caption("Atur crawling & filter data")
 # Crawl controls
 st.sidebar.subheader("Crawling")
 crawl_limit = st.sidebar.slider("📝Limit review per crawl", 5, 50, 10, step=5)
-if st.sidebar.button("🚀 Ambil Ulasan Terbaru dari Google Maps"):
+if st.sidebar.button("🚀 Ambil Ulasan Terbaru dari Google Maps, key="crawl-btn"):
     with st.spinner("Mengambil ulasan dari Google Maps..."):
         added = crawl_gmaps_reviews(limit=crawl_limit)
         fetch_comments.clear()  # refresh cache
@@ -335,7 +355,7 @@ st.sidebar.markdown("---")
 
 df = fetch_comments()
 if df.empty:
-    st.info("Belum ada data komentar di Supabase. Klik **Crawl Ulasan Terbaru** di sidebar.")
+    st.info("Belum ada data komentar di Supabase. Klik **Ambil Ulasan Terbaru dari Google Maps** di sidebar.")
     st.stop()
 
 # Filters
