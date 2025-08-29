@@ -141,71 +141,132 @@ h1,h2,h3,h4,h5,h6 { color: var(--text) !important; }
 BRAND_PURPLE_CSS = """
 <style>
 :root {
-  --bg: #f3e8ff;        /* soft lavender background */
-  --panel: #e9d5ff;     /* panel card ungu muda */
-  --muted: #7c3aed;     /* teks minor */
-  --text: #5b21b6;      /* teks utama ungu lebih gelap */
-  --pos: #16a34a;       /* hijau untuk positif */
-  --neg: #dc2626;       /* merah untuk negatif */
-  --neu: #6b7280;       /* abu-abu netral */
-  --accent: #a78bfa;    /* aksen ungu terang */
+  --bg: #f3f0ff;        /* soft purple background */
+  --panel: #e0d7ff;     /* card panel */
+  --muted: #6b21a8;     /* teks minor */
+  --text: #4c1d95;      /* teks utama */
+  --pos: #16a34a;       /* hijau positif */
+  --neg: #dc2626;       /* merah negatif */
+  --neu: #64748b;       /* abu netral */
+  --accent: #7c3aed;    /* aksen ungu */
 }
-html, body, [data-testid="stAppViewContainer"] { 
-    background: var(--bg); 
-    color: var(--text); 
-}
-[data-testid="stSidebar"] { 
-    background: var(--panel); 
-    border-right: 1px solid var(--muted); 
-}
-h1,h2,h3,h4,h5,h6 { 
-    color: var(--text) !important; 
-}
+
+/* Dashboard & Sidebar */
+html, body, [data-testid="stAppViewContainer"] { background: var(--bg); color: var(--text); }
+[data-testid="stSidebar"] { background: var(--panel); border-right: 1px solid var(--accent); }
+
+/* Judul & teks */
+h1,h2,h3,h4,h5,h6 { color: var(--text) !important; }
+
+/* Cards */
 .card { 
-    border: 1px solid var(--muted); 
+    border: 1px solid var(--accent); 
     background: var(--panel); 
-    border-radius: 16px; 
-    padding: 14px; 
-    transition: transform 0.2s ease, box-shadow 0.2s ease; 
+    border-radius: 14px; 
+    padding: 16px; 
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .card:hover {
     transform: translateY(-3px);
-    box-shadow: 0px 4px 12px rgba(0,0,0,0.15);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
 }
+
+/* Badge / Sentimen */
 .badge { 
-    border-radius: 999px; 
-    font-size: 12px; 
-    padding: 3px 10px;
-    transition: transform 0.2s ease;
+    border-radius: 12px; 
+    font-size: 13px; 
+    font-weight: 600;
+    display: inline-block;
+    padding: 6px 12px; 
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-.badge-pos { 
-    background: rgba(22,163,74,0.15); 
-    color: var(--pos); 
-}
-.badge-neg { 
-    background: rgba(220,38,38,0.15); 
-    color: var(--neg); 
-}
-.badge-neu { 
-    background: rgba(107,114,128,0.18); 
-    color: var(--neu); 
-}
-button, .stButton > button {
-    background-color: var(--accent);
-    color: #fff;
-    border-radius: 12px;
-    padding: 8px 20px;
-    font-weight: bold;
-    border: none;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    cursor: pointer;
-}
-button:hover, .stButton > button:hover {
-    background-color: #8b5cf6; /* ungu lebih gelap saat hover */
+.badge:hover {
     transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
+.badge-pos { background-color: rgba(22,163,74,0.2); color: var(--pos); }
+.badge-neg { background-color: rgba(220,38,38,0.2); color: var(--neg); }
+.badge-neu { background-color: rgba(100,116,139,0.2); color: var(--neu); }
+
+/* Links & accent */
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
 </style>
 """
+
+# Cara pakai:
+import streamlit as st
+st.markdown(BRAND_PURPLE_CSS, unsafe_allow_html=True)
+
+# BRAND_PURPLE_CSS = """
+# <style>
+# :root {
+#   --bg: #f3e8ff;        /* soft lavender background */
+#   --panel: #e9d5ff;     /* panel card ungu muda */
+#   --muted: #7c3aed;     /* teks minor */
+#   --text: #5b21b6;      /* teks utama ungu lebih gelap */
+#   --pos: #16a34a;       /* hijau untuk positif */
+#   --neg: #dc2626;       /* merah untuk negatif */
+#   --neu: #6b7280;       /* abu-abu netral */
+#   --accent: #a78bfa;    /* aksen ungu terang */
+# }
+# html, body, [data-testid="stAppViewContainer"] { 
+#     background: var(--bg); 
+#     color: var(--text); 
+# }
+# [data-testid="stSidebar"] { 
+#     background: var(--panel); 
+#     border-right: 1px solid var(--muted); 
+# }
+# h1,h2,h3,h4,h5,h6 { 
+#     color: var(--text) !important; 
+# }
+# .card { 
+#     border: 1px solid var(--muted); 
+#     background: var(--panel); 
+#     border-radius: 16px; 
+#     padding: 14px; 
+#     transition: transform 0.2s ease, box-shadow 0.2s ease; 
+# }
+# .card:hover {
+#     transform: translateY(-3px);
+#     box-shadow: 0px 4px 12px rgba(0,0,0,0.15);
+# }
+# .badge { 
+#     border-radius: 999px; 
+#     font-size: 12px; 
+#     padding: 3px 10px;
+#     transition: transform 0.2s ease;
+# }
+# .badge-pos { 
+#     background: rgba(22,163,74,0.15); 
+#     color: var(--pos); 
+# }
+# .badge-neg { 
+#     background: rgba(220,38,38,0.15); 
+#     color: var(--neg); 
+# }
+# .badge-neu { 
+#     background: rgba(107,114,128,0.18); 
+#     color: var(--neu); 
+# }
+# button, .stButton > button {
+#     background-color: var(--accent);
+#     color: #fff;
+#     border-radius: 12px;
+#     padding: 8px 20px;
+#     font-weight: bold;
+#     border: none;
+#     transition: background-color 0.3s ease, transform 0.2s ease;
+#     cursor: pointer;
+# }
+# button:hover, .stButton > button:hover {
+#     background-color: #8b5cf6; /* ungu lebih gelap saat hover */
+#     transform: translateY(-2px);
+# }
+# </style>
+# """
 
 
 # =============================
