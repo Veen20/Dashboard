@@ -52,7 +52,7 @@ st.set_page_config(
 
 mode = st.sidebar.selectbox(
     "Tampilan", 
-    ["☀️ Light", "🌙 Dark", "💜 Blue-Purple Gradient", "🔮 Purple-Blue Neon"], 
+    ["☀️ Light", "🌙 Dark", "💜 BRAND_BLUE_CSS", "🔮 Purple-Blue Neon"], 
     index=0
 )
 
@@ -111,10 +111,10 @@ a { color: #93c5fd; }
 # -----------------------------
 # 3️⃣ Blue-Purple Gradient
 # -----------------------------
-BLUE_PURPLE_CSS = """
+BRAND_BLUE_CSS = """
 <style>
 :root {
-   --bg: #e0f2fe;        /* light blue background */
+  --bg: #e0f2fe;        /* light blue background */
   --panel: #bae6fd;     /* panel card */
   --muted: #0284c7;     /* teks minor */
   --text: #1e3a8a;      /* teks utama */
@@ -124,16 +124,16 @@ BLUE_PURPLE_CSS = """
   --accent: #0ea5e9;
 }
 html, body, [data-testid="stAppViewContainer"] { background: var(--bg); color: var(--text); }
-[data-testid="stSidebar"] { background: rgba(40,40,100,0.95); border-right: 1px solid #333366; }
-.card { background: rgba(40,40,100,0.8); border-radius: 16px; padding: 14px; border: 1px solid #5555aa; transition: transform 0.2s, box-shadow 0.2s; }
-.card:hover { transform: translateY(-3px); box-shadow: 0 0 20px rgba(155,89,182,0.6); }
-.badge-pos { background: rgba(90,200,250,0.2); color: var(--pos); }
-.badge-neg { background: rgba(255,107,107,0.2); color: var(--neg); }
-.badge-neu { background: rgba(197,197,255,0.2); color: var(--neu); }
-.kpi { background: rgba(40,40,100,0.8); border-radius: 16px; padding: 14px; border: 1px solid #5555aa; }
-a { color: var(--accent); }
+[data-testid="stSidebar"] { background: var(--panel); border-right: 1px solid #0284c7; }
+h1,h2,h3,h4,h5,h6 { color: var(--text) !important; }
+.card { border: 1px solid #0284c7; background: var(--panel); border-radius: 14px; padding: 14px; }
+.badge { border-radius: 999px; font-size: 12px; }
+.badge-pos { background: rgba(22,163,74,.15); color: var(--pos); }
+.badge-neg { background: rgba(220,38,38,.15); color: var(--neg); }
+.badge-neu { background: rgba(100,116,139,.18); color: var(--neu); }
 </style>
 """
+
 
 # -----------------------------
 # 4️⃣ Purple-Blue Neon Modern
@@ -167,7 +167,7 @@ a { color: var(--accent); }
 theme_css = {
     "☀️ Light": LIGHT_CSS,
     "🌙 Dark": DARK_CSS,
-    "💜 Blue-Purple Gradient": BLUE_PURPLE_CSS,
+    "💜 BRAND_BLUE_CSS": BLUE_PURPLE_CSS,
     "🔮 Purple-Blue Neon": PURPLE_BLUE_CSS
 }
 
@@ -215,14 +215,14 @@ st.markdown(theme_css[mode], unsafe_allow_html=True)
 # BRAND_BLUE_CSS = """
 # <style>
 # :root {
-  # --bg: #e0f2fe;        /* light blue background */
-  # --panel: #bae6fd;     /* panel card */
-  # --muted: #0284c7;     /* teks minor */
-  # --text: #1e3a8a;      /* teks utama */
-  # --pos: #16a34a;
-  # --neg: #dc2626;
-  # --neu: #64748b;
-  # --accent: #0ea5e9;
+#   --bg: #e0f2fe;        /* light blue background */
+#   --panel: #bae6fd;     /* panel card */
+#   --muted: #0284c7;     /* teks minor */
+#   --text: #1e3a8a;      /* teks utama */
+#   --pos: #16a34a;
+#   --neg: #dc2626;
+#   --neu: #64748b;
+#   --accent: #0ea5e9;
 # }
 # html, body, [data-testid="stAppViewContainer"] { background: var(--bg); color: var(--text); }
 # [data-testid="stSidebar"] { background: var(--panel); border-right: 1px solid #0284c7; }
