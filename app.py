@@ -52,7 +52,7 @@ st.set_page_config(
 
 mode = st.sidebar.selectbox(
     "Tampilan", 
-    ["☀️ Light", "🌙 Dark", "💜 Brand blue", "🔮 Purple-Blue Neon"], 
+    ["☀️ Light", "🌙 Dark", "🩵Brand blue", "💜 Purple"], 
     index=0
 )
 
@@ -214,8 +214,8 @@ button:hover, .stButton > button:hover {
 theme_css = {
     "☀️ Light": LIGHT_CSS,
     "🌙 Dark": DARK_CSS,
-    "💜 Brand blue": BRAND_BLUE_CSS,
-    "🔮 Purple-Blue Neon": PURPLE_BLUE_CSS
+    "🩵 Brand blue": BRAND_BLUE_CSS,
+    "💜 Purple": BRAND_PURPLE_CSS
 }
 
 st.markdown(theme_css[mode], unsafe_allow_html=True)
