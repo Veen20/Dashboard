@@ -52,7 +52,7 @@ st.set_page_config(
 
 mode = st.sidebar.selectbox(
     "Tampilan", 
-    ["☀️ Light", "🌙 Dark", "💜 BRAND_BLUE_CSS", "🔮 Purple-Blue Neon"], 
+    ["☀️ Light", "🌙 Dark", "💜 Brand blue", "🔮 Purple-Blue Neon"], 
     index=0
 )
 
@@ -167,7 +167,7 @@ a { color: var(--accent); }
 theme_css = {
     "☀️ Light": LIGHT_CSS,
     "🌙 Dark": DARK_CSS,
-    "💜 BRAND_BLUE_CSS": BLUE_PURPLE_CSS,
+    "💜 Brand blue": BRAND_BLUE_CSS,
     "🔮 Purple-Blue Neon": PURPLE_BLUE_CSS
 }
 
