@@ -46,101 +46,75 @@ st.set_page_config(
 # -----------------------------
 # Theme Toggle (Light/Dark)
 # -----------------------------
-# mode = st.sidebar.selectbox("Tampilan", ["🌙 Dark", "☀️ Light"], index=0)
+# =============================
+# Mode Tampilan: 4 pilihan
+# =============================
+
 mode = st.sidebar.selectbox(
     "Tampilan", 
-    ["🔵BLUE_PURPLE_CSS", "🟣PURPLE_BLUE_CSS", "🌙 Dark", "🩵 Brand Blue", "🌸 Modern Light"],  # tambah opsi baru
+    ["☀️ Light", "🌙 Dark", "💜 Blue-Purple Gradient", "🔮 Purple-Blue Neon"], 
     index=0
 )
 
+# -----------------------------
+# 1️⃣ Light
+# -----------------------------
+LIGHT_CSS = """
+<style>
+:root {
+  --bg: #ffffff;
+  --panel: #ffffff;
+  --muted: #6b7280;
+  --text: #111827;
+  --pos: #16a34a;
+  --neg: #dc2626;
+  --neu: #64748b;
+  --accent: #2563eb;
+}
+html, body, [data-testid="stAppViewContainer"] { background: var(--bg); color: var(--text); }
+[data-testid="stSidebar"] { background: #f9fafb; border-right: 1px solid #e5e7eb; }
+.card { border: 1px solid #e5e7eb; background: var(--panel); border-radius: 12px; padding: 14px; }
+.badge-pos { background: rgba(22,163,74,.12); color: var(--pos); }
+.badge-neg { background: rgba(220,38,38,.12); color: var(--neg); }
+.badge-neu { background: rgba(100,116,139,.12); color: var(--neu); }
+.kpi { background: var(--panel); border: 1px solid #e5e7eb; border-radius: 12px; padding: 14px; }
+a { color: #1d4ed8; }
+</style>
+"""
 
+# -----------------------------
+# 2️⃣ Dark
+# -----------------------------
 DARK_CSS = """
 <style>
 :root {
-  --bg: #0f172a;         /* slate-900 */
-  --panel: #0b1220;      /* custom dark */
-  --muted: #94a3b8;      /* slate-400 */
-  --text: #e5e7eb;       /* gray-200 */
-  --pos: #16a34a;        /* green-600 */
-  --neg: #dc2626;        /* red-600 */
-  --neu: #64748b;        /* slate-500 */
-  --accent: #2563eb;     /* blue-600 */
+  --bg: #0f172a;
+  --panel: #0b1220;
+  --muted: #94a3b8;
+  --text: #e5e7eb;
+  --pos: #16a34a;
+  --neg: #dc2626;
+  --neu: #64748b;
+  --accent: #2563eb;
 }
 html, body, [data-testid="stAppViewContainer"] { background: var(--bg); color: var(--text); }
 [data-testid="stSidebar"] { background: #0b1220; border-right: 1px solid #1f2937; }
-h1,h2,h3,h4,h5,h6 { color: #f8fafc !important; }
-hr { border-color: #1f2937; }
-.block-container { padding-top: 1.2rem; }
-.card { border: 1px solid #1f2937; background: var(--panel); border-radius: 18px; padding: 14px; }
-.badge { padding: 3px 10px; border-radius: 999px; font-weight: 600; font-size: 12px; }
+.card { border: 1px solid #1f2937; background: var(--panel); border-radius: 16px; padding: 14px; }
 .badge-pos { background: rgba(22,163,74,.15); color: var(--pos); }
 .badge-neg { background: rgba(220,38,38,.15); color: var(--neg); }
 .badge-neu { background: rgba(100,116,139,.18); color: var(--neu); }
-.small { color: var(--muted); font-size: 12px; }
 .kpi { background: var(--panel); border: 1px solid #1f2937; border-radius: 16px; padding: 14px; }
-.kpi .label { color: var(--muted); font-size: 13px; }
-.kpi .value { font-weight: 700; font-size: 22px; }
 a { color: #93c5fd; }
 </style>
 """
 
-
-BRAND_BLUE_CSS = """
-<style>
-:root {
-  --bg: #e0f2fe;        /* light blue background */
-  --panel: #bae6fd;     /* panel card */
-  --muted: #0284c7;     /* teks minor */
-  --text: #1e3a8a;      /* teks utama */
-  --pos: #16a34a;
-  --neg: #dc2626;
-  --neu: #64748b;
-  --accent: #0ea5e9;
-}
-html, body, [data-testid="stAppViewContainer"] { background: var(--bg); color: var(--text); }
-[data-testid="stSidebar"] { background: var(--panel); border-right: 1px solid #0284c7; }
-h1,h2,h3,h4,h5,h6 { color: var(--text) !important; }
-.card { border: 1px solid #0284c7; background: var(--panel); border-radius: 14px; padding: 14px; }
-.badge { border-radius: 999px; font-size: 12px; }
-.badge-pos { background: rgba(22,163,74,.15); color: var(--pos); }
-.badge-neg { background: rgba(220,38,38,.15); color: var(--neg); }
-.badge-neu { background: rgba(100,116,139,.18); color: var(--neu); }
-</style>
-"""
-
-
-# Tema Modern Light
-MODERN_LIGHT_CSS = """
-<style>
-:root {
-  --bg: #f0f4ff;       /* pastel biru */
-  --panel: #ffffff;     /* panel putih */
-  --muted: #6b7280;     /* text muted */
-  --text: #111827;      /* text utama */
-  --pos: #0d9488;       /* cyan gelap */
-  --neg: #dc2626;       /* merah */
-  --neu: #64748b;       /* netral */
-  --accent: #6366f1;    /* ungu pastel */
-}
-html, body, [data-testid="stAppViewContainer"] { background: var(--bg); color: var(--text); }
-[data-testid="stSidebar"] { background: #ffffff; border-right: 1px solid #e5e7eb; }
-.card { border: 1px solid #e5e7eb; background: var(--panel); border-radius: 12px; padding: 14px; transition: transform 0.2s; }
-.card:hover { transform: scale(1.02); }
-.badge-pos { background: rgba(13,148,136,0.15); color: var(--pos); }
-.badge-neg { background: rgba(220,38,38,0.15); color: var(--neg); }
-.badge-neu { background: rgba(100,116,139,0.12); color: var(--neu); }
-.kpi { background: var(--panel); border: 1px solid #e5e7eb; border-radius: 12px; padding: 14px; }
-a { color: var(--accent); }
-</style>
-"""
-
-# =============================
-# 1️⃣ Blue-Purple Gradient (Ungu kebiruan)
-# =============================
+# -----------------------------
+# 3️⃣ Blue-Purple Gradient
+# -----------------------------
 BLUE_PURPLE_CSS = """
 <style>
 :root {
-  --bg: linear-gradient(135deg, #4f46e5, #0ea5e9); /* biru keunguan */
+  --bg: linear-gradient(135deg, #4f46e5, #0ea5e9);
   --panel: rgba(30, 30, 80, 0.9);
   --text: #f0f0ff;
   --pos: #5ac8fa;
@@ -148,25 +122,10 @@ BLUE_PURPLE_CSS = """
   --neu: #c5c5ff;
   --accent: #9b59b6;
 }
-html, body, [data-testid="stAppViewContainer"] { 
-  background: var(--bg); 
-  color: var(--text); 
-}
-[data-testid="stSidebar"] { 
-  background: rgba(40, 40, 100, 0.95); 
-  border-right: 1px solid #333366; 
-}
-.card { 
-  background: rgba(40, 40, 100, 0.8); 
-  border-radius: 16px; 
-  padding: 14px; 
-  border: 1px solid #5555aa; 
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-.card:hover { 
-  transform: translateY(-3px); 
-  box-shadow: 0 0 20px rgba(155, 89, 182, 0.6); 
-}
+html, body, [data-testid="stAppViewContainer"] { background: var(--bg); color: var(--text); }
+[data-testid="stSidebar"] { background: rgba(40,40,100,0.95); border-right: 1px solid #333366; }
+.card { background: rgba(40,40,100,0.8); border-radius: 16px; padding: 14px; border: 1px solid #5555aa; transition: transform 0.2s, box-shadow 0.2s; }
+.card:hover { transform: translateY(-3px); box-shadow: 0 0 20px rgba(155,89,182,0.6); }
 .badge-pos { background: rgba(90,200,250,0.2); color: var(--pos); }
 .badge-neg { background: rgba(255,107,107,0.2); color: var(--neg); }
 .badge-neu { background: rgba(197,197,255,0.2); color: var(--neu); }
@@ -175,9 +134,9 @@ a { color: var(--accent); }
 </style>
 """
 
-# =============================
-# 2️⃣ Purple-Blue Neon Modern (Biru keunguan)
-# =============================
+# -----------------------------
+# 4️⃣ Purple-Blue Neon Modern
+# -----------------------------
 PURPLE_BLUE_CSS = """
 <style>
 :root {
@@ -189,25 +148,10 @@ PURPLE_BLUE_CSS = """
   --neu: #c0c0ff;
   --accent: #aa00ff;
 }
-html, body, [data-testid="stAppViewContainer"] { 
-  background: var(--bg); 
-  color: var(--text); 
-}
-[data-testid="stSidebar"] { 
-  background: #111833; 
-  border-right: 1px solid #222244; 
-}
-.card { 
-  background: #111833; 
-  border-radius: 16px; 
-  padding: 14px; 
-  border: 1px solid #4444aa; 
-  transition: transform 0.2s ease, box-shadow 0.3s ease; 
-}
-.card:hover { 
-  transform: translateY(-3px); 
-  box-shadow: 0 0 15px #aa00ff; 
-}
+html, body, [data-testid="stAppViewContainer"] { background: var(--bg); color: var(--text); }
+[data-testid="stSidebar"] { background: #111833; border-right: 1px solid #222244; }
+.card { background: #111833; border-radius: 16px; padding: 14px; border: 1px solid #4444aa; transition: transform 0.2s, box-shadow 0.3s; }
+.card:hover { transform: translateY(-3px); box-shadow: 0 0 15px #aa00ff; }
 .badge-pos { background: rgba(0,240,255,0.15); color: var(--pos); }
 .badge-neg { background: rgba(255,77,109,0.15); color: var(--neg); }
 .badge-neu { background: rgba(192,192,255,0.15); color: var(--neu); }
@@ -216,20 +160,203 @@ a { color: var(--accent); }
 </style>
 """
 
-# Terapkan CSS sesuai mode
-if mode.startswith("🌙"):
-    st.markdown(DARK_CSS, unsafe_allow_html=True)
-elif mode.startswith("🌸"):
-    st.markdown(MODERN_LIGHT_CSS, unsafe_allow_html=True)
+# =============================
+# Terapkan tema
+# =============================
+theme_css = {
+    "☀️ Light": LIGHT_CSS,
+    "🌙 Dark": DARK_CSS,
+    "💜 Blue-Purple Gradient": BLUE_PURPLE_CSS,
+    "🔮 Purple-Blue Neon": PURPLE_BLUE_CSS
+}
 
-if mode.startswith("🟣"):
-    st.markdown(PURPLE_BLUE_CSS, unsafe_allow_html=True)
-if mode.startswith("🔵"):
-    st.markdown(BLUE_PURPLE_CSS, unsafe_allow_html=True)
-else:
-    st.markdown(BRAND_BLUE_CSS, unsafe_allow_html=True)
+st.markdown(theme_css[mode], unsafe_allow_html=True)
+
+# # mode = st.sidebar.selectbox("Tampilan", ["🌙 Dark", "☀️ Light"], index=0)
+# mode = st.sidebar.selectbox(
+#     "Tampilan", 
+#     ["🔵BLUE_PURPLE_CSS", "🟣PURPLE_BLUE_CSS", "🌙 Dark", "🩵 Brand Blue", "🌸 Modern Light"],  # tambah opsi baru
+#     index=0
+# )
+
+
+# DARK_CSS = """
+# <style>
+# :root {
+#   --bg: #0f172a;         /* slate-900 */
+#   --panel: #0b1220;      /* custom dark */
+#   --muted: #94a3b8;      /* slate-400 */
+#   --text: #e5e7eb;       /* gray-200 */
+#   --pos: #16a34a;        /* green-600 */
+#   --neg: #dc2626;        /* red-600 */
+#   --neu: #64748b;        /* slate-500 */
+#   --accent: #2563eb;     /* blue-600 */
+# }
+# html, body, [data-testid="stAppViewContainer"] { background: var(--bg); color: var(--text); }
+# [data-testid="stSidebar"] { background: #0b1220; border-right: 1px solid #1f2937; }
+# h1,h2,h3,h4,h5,h6 { color: #f8fafc !important; }
+# hr { border-color: #1f2937; }
+# .block-container { padding-top: 1.2rem; }
+# .card { border: 1px solid #1f2937; background: var(--panel); border-radius: 18px; padding: 14px; }
+# .badge { padding: 3px 10px; border-radius: 999px; font-weight: 600; font-size: 12px; }
+# .badge-pos { background: rgba(22,163,74,.15); color: var(--pos); }
+# .badge-neg { background: rgba(220,38,38,.15); color: var(--neg); }
+# .badge-neu { background: rgba(100,116,139,.18); color: var(--neu); }
+# .small { color: var(--muted); font-size: 12px; }
+# .kpi { background: var(--panel); border: 1px solid #1f2937; border-radius: 16px; padding: 14px; }
+# .kpi .label { color: var(--muted); font-size: 13px; }
+# .kpi .value { font-weight: 700; font-size: 22px; }
+# a { color: #93c5fd; }
+# </style>
+# """
+
+
+# BRAND_BLUE_CSS = """
+# <style>
+# :root {
+#   --bg: #e0f2fe;        /* light blue background */
+#   --panel: #bae6fd;     /* panel card */
+#   --muted: #0284c7;     /* teks minor */
+#   --text: #1e3a8a;      /* teks utama */
+#   --pos: #16a34a;
+#   --neg: #dc2626;
+#   --neu: #64748b;
+#   --accent: #0ea5e9;
+# }
+# html, body, [data-testid="stAppViewContainer"] { background: var(--bg); color: var(--text); }
+# [data-testid="stSidebar"] { background: var(--panel); border-right: 1px solid #0284c7; }
+# h1,h2,h3,h4,h5,h6 { color: var(--text) !important; }
+# .card { border: 1px solid #0284c7; background: var(--panel); border-radius: 14px; padding: 14px; }
+# .badge { border-radius: 999px; font-size: 12px; }
+# .badge-pos { background: rgba(22,163,74,.15); color: var(--pos); }
+# .badge-neg { background: rgba(220,38,38,.15); color: var(--neg); }
+# .badge-neu { background: rgba(100,116,139,.18); color: var(--neu); }
+# </style>
+# """
+
+
+# # Tema Modern Light
+# MODERN_LIGHT_CSS = """
+# <style>
+# :root {
+#   --bg: #f0f4ff;       /* pastel biru */
+#   --panel: #ffffff;     /* panel putih */
+#   --muted: #6b7280;     /* text muted */
+#   --text: #111827;      /* text utama */
+#   --pos: #0d9488;       /* cyan gelap */
+#   --neg: #dc2626;       /* merah */
+#   --neu: #64748b;       /* netral */
+#   --accent: #6366f1;    /* ungu pastel */
+# }
+# html, body, [data-testid="stAppViewContainer"] { background: var(--bg); color: var(--text); }
+# [data-testid="stSidebar"] { background: #ffffff; border-right: 1px solid #e5e7eb; }
+# .card { border: 1px solid #e5e7eb; background: var(--panel); border-radius: 12px; padding: 14px; transition: transform 0.2s; }
+# .card:hover { transform: scale(1.02); }
+# .badge-pos { background: rgba(13,148,136,0.15); color: var(--pos); }
+# .badge-neg { background: rgba(220,38,38,0.15); color: var(--neg); }
+# .badge-neu { background: rgba(100,116,139,0.12); color: var(--neu); }
+# .kpi { background: var(--panel); border: 1px solid #e5e7eb; border-radius: 12px; padding: 14px; }
+# a { color: var(--accent); }
+# </style>
+# """
+
+# # =============================
+# # 1️⃣ Blue-Purple Gradient (Ungu kebiruan)
+# # =============================
+# BLUE_PURPLE_CSS = """
+# <style>
+# :root {
+#   --bg: linear-gradient(135deg, #4f46e5, #0ea5e9); /* biru keunguan */
+#   --panel: rgba(30, 30, 80, 0.9);
+#   --text: #f0f0ff;
+#   --pos: #5ac8fa;
+#   --neg: #ff6b6b;
+#   --neu: #c5c5ff;
+#   --accent: #9b59b6;
+# }
+# html, body, [data-testid="stAppViewContainer"] { 
+#   background: var(--bg); 
+#   color: var(--text); 
+# }
+# [data-testid="stSidebar"] { 
+#   background: rgba(40, 40, 100, 0.95); 
+#   border-right: 1px solid #333366; 
+# }
+# .card { 
+#   background: rgba(40, 40, 100, 0.8); 
+#   border-radius: 16px; 
+#   padding: 14px; 
+#   border: 1px solid #5555aa; 
+#   transition: transform 0.2s ease, box-shadow 0.2s ease;
+# }
+# .card:hover { 
+#   transform: translateY(-3px); 
+#   box-shadow: 0 0 20px rgba(155, 89, 182, 0.6); 
+# }
+# .badge-pos { background: rgba(90,200,250,0.2); color: var(--pos); }
+# .badge-neg { background: rgba(255,107,107,0.2); color: var(--neg); }
+# .badge-neu { background: rgba(197,197,255,0.2); color: var(--neu); }
+# .kpi { background: rgba(40,40,100,0.8); border-radius: 16px; padding: 14px; border: 1px solid #5555aa; }
+# a { color: var(--accent); }
+# </style>
+# """
+
+# # =============================
+# # 2️⃣ Purple-Blue Neon Modern (Biru keunguan)
+# # =============================
+# PURPLE_BLUE_CSS = """
+# <style>
+# :root {
+#   --bg: #0a0f2c;
+#   --panel: #111833;
+#   --text: #e0e0ff;
+#   --pos: #00f0ff;
+#   --neg: #ff4d6d;
+#   --neu: #c0c0ff;
+#   --accent: #aa00ff;
+# }
+# html, body, [data-testid="stAppViewContainer"] { 
+#   background: var(--bg); 
+#   color: var(--text); 
+# }
+# [data-testid="stSidebar"] { 
+#   background: #111833; 
+#   border-right: 1px solid #222244; 
+# }
+# .card { 
+#   background: #111833; 
+#   border-radius: 16px; 
+#   padding: 14px; 
+#   border: 1px solid #4444aa; 
+#   transition: transform 0.2s ease, box-shadow 0.3s ease; 
+# }
+# .card:hover { 
+#   transform: translateY(-3px); 
+#   box-shadow: 0 0 15px #aa00ff; 
+# }
+# .badge-pos { background: rgba(0,240,255,0.15); color: var(--pos); }
+# .badge-neg { background: rgba(255,77,109,0.15); color: var(--neg); }
+# .badge-neu { background: rgba(192,192,255,0.15); color: var(--neu); }
+# .kpi { background: #111833; border-radius: 16px; padding: 14px; border: 1px solid #4444aa; }
+# a { color: var(--accent); }
+# </style>
+# """
+
+# # Terapkan CSS sesuai mode
+# if mode.startswith("🌙"):
+#     st.markdown(DARK_CSS, unsafe_allow_html=True)
+# elif mode.startswith("🌸"):
+#     st.markdown(MODERN_LIGHT_CSS, unsafe_allow_html=True)
+
+# if mode.startswith("🟣"):
+#     st.markdown(PURPLE_BLUE_CSS, unsafe_allow_html=True)
+# if mode.startswith("🔵"):
+#     st.markdown(BLUE_PURPLE_CSS, unsafe_allow_html=True)
+# else:
+#     st.markdown(BRAND_BLUE_CSS, unsafe_allow_html=True)
 
 # st.markdown(DARK_CSS if mode.startswith("🌙") else LIGHT_CSS, unsafe_allow_html=True)
+
 
 
 st.markdown("""
