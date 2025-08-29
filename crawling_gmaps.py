@@ -128,6 +128,16 @@ def crawl_gmaps_reviews(limit: int = 10) -> int:
             "relative_time": relative_time,
             "review_time": review_time
         }
+          # === Cek duplikat sebelum insert ===
+        existing = supabase.table("comments") \
+            .select("id") \
+            .eq("comment", comment_text) \
+            .eq("review_time", review_time) \
+            .execute()
+
+        if existing.data:
+            logging.info("Lewati duplikat review")
+            continue
         try:
             supabase.table("comments").insert(data).execute()
             added_count += 1
