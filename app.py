@@ -114,13 +114,13 @@ a { color: #93c5fd; }
 BLUE_PURPLE_CSS = """
 <style>
 :root {
-   --bg: linear-gradient(135deg, #06b6d4, #14b8a6); /* teal-cyan */
-  --panel: rgba(0,50,60,0.85);
-  --text: #f0fafa;
-  --pos: #22d3ee;
-  --neg: #f472b6;
-  --neu: #a5f3fc;
-  --accent: #06b6d4;
+  --bg: linear-gradient(135deg, #f97316, #facc15); /* sunset gradient */
+  --panel: rgba(60,30,10,0.85);
+  --text: #fff7ed;
+  --pos: #22c55e;
+  --neg: #ef4444;
+  --neu: #fde68a;
+  --accent: #f97316;
 }
 html, body, [data-testid="stAppViewContainer"] { background: var(--bg); color: var(--text); }
 [data-testid="stSidebar"] { background: rgba(40,40,100,0.95); border-right: 1px solid #333366; }
