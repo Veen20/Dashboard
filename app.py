@@ -202,9 +202,7 @@ a { color: var(--accent); }
 </style>
 
 
-# Cara pakai:
-# import streamlit as st
-# st.markdown(BRAND_PURPLE_CSS, unsafe_allow_html=True)
+
 
 # BRAND_PURPLE_CSS = """
 # <style>
