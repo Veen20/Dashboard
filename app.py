@@ -141,63 +141,70 @@ h1,h2,h3,h4,h5,h6 { color: var(--text) !important; }
 BRAND_PURPLE_CSS = """
 <style>
 :root {
-  --bg: #f3f0ff;        /* soft purple background */
-  --panel: #e0d7ff;     /* card panel */
+  --bg: #f5f3ff;        /* very soft purple background */
+  --panel: #ede9fe;     /* panel card */
   --muted: #6b21a8;     /* teks minor */
   --text: #4c1d95;      /* teks utama */
-  --pos: #16a34a;       /* hijau positif */
-  --neg: #dc2626;       /* merah negatif */
-  --neu: #64748b;       /* abu netral */
-  --accent: #7c3aed;    /* aksen ungu */
+  --pos: #10b981;       /* hijau untuk positif */
+  --neg: #ef4444;       /* merah untuk negatif */
+  --neu: #7c3aed;       /* ungu netral */
+  --accent: #8b5cf6;    /* warna aksen ungu terang */
 }
 
-/* Dashboard & Sidebar */
-html, body, [data-testid="stAppViewContainer"] { background: var(--bg); color: var(--text); }
-[data-testid="stSidebar"] { background: var(--panel); border-right: 1px solid var(--accent); }
-
-/* Judul & teks */
-h1,h2,h3,h4,h5,h6 { color: var(--text) !important; }
-
-/* Cards */
-.card { 
-    border: 1px solid var(--accent); 
+html, body, [data-testid="stAppViewContainer"] { 
+    background: var(--bg); 
+    color: var(--text); 
+}
+[data-testid="stSidebar"] { 
     background: var(--panel); 
-    border-radius: 14px; 
-    padding: 16px; 
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-right: 1px solid #c4b5fd; 
 }
-.card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
-}
-
-/* Badge / Sentimen */
-.badge { 
+.card { 
+    border: 1px solid #c4b5fd; 
+    background: var(--panel); 
     border-radius: 12px; 
-    font-size: 13px; 
-    font-weight: 600;
-    display: inline-block;
-    padding: 6px 12px; 
-    text-align: center;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    padding: 14px; 
 }
-.badge:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+.badge-pos { 
+    background: #d1fae5;  /* hijau soft */
+    color: var(--pos);     
+    border-radius: 10px; 
+    padding: 8px 14px; 
+    font-weight: 600; 
+    display: inline-block; 
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
-.badge-pos { background-color: rgba(22,163,74,0.2); color: var(--pos); }
-.badge-neg { background-color: rgba(220,38,38,0.2); color: var(--neg); }
-.badge-neu { background-color: rgba(100,116,139,0.2); color: var(--neu); }
-
-/* Links & accent */
-a { color: var(--accent); text-decoration: none; }
-a:hover { text-decoration: underline; }
+.badge-neg { 
+    background: #fee2e2;  /* merah soft */
+    color: var(--neg); 
+    border-radius: 10px; 
+    padding: 8px 14px; 
+    font-weight: 600; 
+    display: inline-block; 
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+.badge-neu { 
+    background: #ede9fe;  /* ungu muda */
+    color: var(--neu); 
+    border-radius: 10px; 
+    padding: 8px 14px; 
+    font-weight: 600; 
+    display: inline-block; 
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+.kpi { 
+    background: var(--panel); 
+    border: 1px solid #c4b5fd; 
+    border-radius: 12px; 
+    padding: 14px; 
+}
+a { color: var(--accent); }
 </style>
-"""
+
 
 # Cara pakai:
-import streamlit as st
-st.markdown(BRAND_PURPLE_CSS, unsafe_allow_html=True)
+# import streamlit as st
+# st.markdown(BRAND_PURPLE_CSS, unsafe_allow_html=True)
 
 # BRAND_PURPLE_CSS = """
 # <style>
