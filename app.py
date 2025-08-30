@@ -439,7 +439,7 @@ st.sidebar.caption("Atur crawling & filter data")
 # Crawl controls
 st.sidebar.subheader("Crawling")
 crawl_limit = st.sidebar.slider("📝Limit review per crawl", 5, 50, 10, step=5)
-if st.sidebar.button("🚀 Ambil Ulasan Terbaru dari Google Maps", key="crawl-btn"):
+if st.sidebar.button("🚀 Klik disini Untuk Ambil Ulasan Terbaru dari Google Maps", key="crawl-btn"):
     with st.spinner("Mengambil ulasan dari Google Maps..."):
         added = crawl_gmaps_reviews(limit=crawl_limit)
         fetch_comments.clear()  # refresh cache
