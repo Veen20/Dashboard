@@ -437,23 +437,64 @@ st.sidebar.title("⚙️ Kontrol")
 st.sidebar.caption("Atur crawling & filter data")
 
 # Crawl controls
+import time
+import streamlit as st
+
+# Simpan timestamp terakhir crawl di session_state
+if "last_crawl_time" not in st.session_state:
+    st.session_state.last_crawl_time = 0  
+
+# Crawl controls
 st.sidebar.subheader("Crawling")
-crawl_limit = st.sidebar.slider("📝Limit review per crawl", 5, 50, 10, step=5)
+crawl_limit = st.sidebar.slider("📝 Limit review per crawl", 5, 50, 10, step=5)
 
 # Buat placeholder untuk status message
 status_msg = st.empty()
+
+# Interval waktu minimal antar crawl (detik), misalnya 60 detik = 1 menit
+COOLDOWN = 60  
+
 if st.sidebar.button("🚀 Klik disini Untuk Ambil Ulasan Terbaru", key="crawl-btn"):
-    with st.spinner("Mengambil ulasan dari Google Maps..."):
-        added = crawl_gmaps_reviews(limit=crawl_limit)
-        fetch_comments.clear()  # refresh cache
-    if added == 0:
-        status_msg.info("ℹ️ Belum ada ulasan terbaru. Data saat ini sudah paling update.")
-    else:
-        status_msg.success(f"✅ {added} ulasan baru berhasil ditambahkan!.")
+    now = time.time()
+    elapsed = now - st.session_state.last_crawl_time
     
-    # Hapus pesan setelah 3 detik
-    time.sleep(3)
-    status_msg.empty()
+    if elapsed < COOLDOWN:
+        remaining = int(COOLDOWN - elapsed)
+        status_msg.warning(f"⚠️ Jangan terlalu sering crawl! Coba lagi dalam {remaining} detik.")
+    else:
+        with st.spinner("Mengambil ulasan dari Google Maps..."):
+            added = crawl_gmaps_reviews(limit=crawl_limit)
+            fetch_comments.clear()  # refresh cache
+
+        if added == 0:
+            status_msg.info("ℹ️ Belum ada ulasan terbaru. Data saat ini sudah paling update.")
+        else:
+            status_msg.success(f"✅ {added} ulasan baru berhasil ditambahkan!")
+
+        # Catat waktu terakhir crawl
+        st.session_state.last_crawl_time = now  
+
+        # Hapus pesan setelah 3 detik
+        time.sleep(3)
+        status_msg.empty()
+
+# st.sidebar.subheader("Crawling")
+# crawl_limit = st.sidebar.slider("📝Limit review per crawl", 5, 50, 10, step=5)
+
+# # Buat placeholder untuk status message
+# status_msg = st.empty()
+# if st.sidebar.button("🚀 Klik disini Untuk Ambil Ulasan Terbaru", key="crawl-btn"):
+#     with st.spinner("Mengambil ulasan dari Google Maps..."):
+#         added = crawl_gmaps_reviews(limit=crawl_limit)
+#         fetch_comments.clear()  # refresh cache
+#     if added == 0:
+#         status_msg.info("ℹ️ Belum ada ulasan terbaru. Data saat ini sudah paling update.")
+#     else:
+#         status_msg.success(f"✅ {added} ulasan baru berhasil ditambahkan!.")
+    
+#     # Hapus pesan setelah 3 detik
+#     time.sleep(3)
+#     status_msg.empty()
 
 st.sidebar.markdown("---")
 
