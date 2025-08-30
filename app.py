@@ -493,7 +493,7 @@ now = time.time()
 if now < st.session_state.cooldown_until:
     remaining = int(st.session_state.cooldown_until - now)
     status_msg.warning(f"⚠️ Jangan terlalu sering crawl! Coba lagi dalam {remaining} detik.")
-    st_autorefresh(interval=1000, limit=remaining, key="cooldown-timer")
+    st_autorefresh(interval=1000, key="cooldown-timer")
 
 # st.sidebar.subheader("Crawling")
 # crawl_limit = st.sidebar.slider("📝Limit review per crawl", 5, 50, 10, step=5)
