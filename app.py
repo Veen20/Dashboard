@@ -16,7 +16,7 @@ import io
 import re
 from typing import List
 from datetime import datetime, timedelta
-
+from streamlit_autorefresh import st_autorefresh
 import numpy as np
 import pandas as pd
 import plotly.express as px
@@ -436,30 +436,34 @@ def trending_phrases(df, recent_days=7, prev_days=7, top_n=10, ngram_range=(2,3)
 st.sidebar.title("⚙️ Kontrol")
 st.sidebar.caption("Atur crawling & filter data")
 
-# Crawl controls
-import time
-import streamlit as st
 
-# Simpan timestamp terakhir crawl di session_state
+# ==========================
+# Setup state
+# ==========================
 if "last_crawl_time" not in st.session_state:
-    st.session_state.last_crawl_time = 0  
+    st.session_state.last_crawl_time = 0
 
-# Crawl controls
+if "cooldown_until" not in st.session_state:
+    st.session_state.cooldown_until = 0
+
+# ==========================
+# Sidebar Crawl Controls
+# ==========================
 st.sidebar.subheader("Crawling")
 crawl_limit = st.sidebar.slider("📝 Limit review per crawl", 5, 50, 10, step=5)
 
-# Buat placeholder untuk status message
 status_msg = st.empty()
 
-# Interval waktu minimal antar crawl (detik), misalnya 60 detik = 1 menit
-COOLDOWN = 60  
+# Interval cooldown (detik)
+COOLDOWN = 60
 
+# ==========================
+# Tombol Crawl
+# ==========================
 if st.sidebar.button("🚀 Klik disini Untuk Ambil Ulasan Terbaru", key="crawl-btn"):
     now = time.time()
-    elapsed = now - st.session_state.last_crawl_time
-    
-    if elapsed < COOLDOWN:
-        remaining = int(COOLDOWN - elapsed)
+    if now < st.session_state.cooldown_until:
+        remaining = int(st.session_state.cooldown_until - now)
         status_msg.warning(f"⚠️ Jangan terlalu sering crawl! Coba lagi dalam {remaining} detik.")
     else:
         with st.spinner("Mengambil ulasan dari Google Maps..."):
@@ -471,12 +475,22 @@ if st.sidebar.button("🚀 Klik disini Untuk Ambil Ulasan Terbaru", key="crawl-b
         else:
             status_msg.success(f"✅ {added} ulasan baru berhasil ditambahkan!")
 
-        # Catat waktu terakhir crawl
-        st.session_state.last_crawl_time = now  
+        # Catat waktu cooldown berikutnya
+        st.session_state.last_crawl_time = now
+        st.session_state.cooldown_until = now + COOLDOWN
 
-        # Hapus pesan setelah 3 detik
+        # Hapus pesan sukses setelah 3 detik
         time.sleep(3)
         status_msg.empty()
+
+# ==========================
+# Countdown Update
+# ==========================
+now = time.time()
+if now < st.session_state.cooldown_until:
+    remaining = int(st.session_state.cooldown_until - now)
+    status_msg.warning(f"⚠️ Jangan terlalu sering crawl! Coba lagi dalam {remaining} detik.")
+    st_autorefresh(interval=1000, limit=remaining, key="cooldown-timer")
 
 # st.sidebar.subheader("Crawling")
 # crawl_limit = st.sidebar.slider("📝Limit review per crawl", 5, 50, 10, step=5)
