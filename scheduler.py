@@ -13,7 +13,7 @@ def job():
 
 if __name__ == "__main__":
     scheduler = BackgroundScheduler()
-    scheduler.add_job(job, CronTrigger(day_of_week="mon", hour=8, minute=0))
+    scheduler.add_job(job, CronTrigger(day_of_week="sat", hour=10, minute=26))
     scheduler.start()
     logging.info("Scheduler berjalan. Tekan CTRL+C untuk berhenti.")
 
