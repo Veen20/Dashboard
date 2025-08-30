@@ -132,7 +132,6 @@ def crawl_gmaps_reviews(limit: int = 10) -> int:
         existing = supabase.table("comments") \
             .select("id") \
             .eq("comment", comment_text) \
-            .eq("review_time", review_time) \
             .execute()
 
         if existing.data:
