@@ -471,7 +471,7 @@ remaining = int(st.session_state.cooldown_until - now)
 crawl_btn = st.sidebar.button(
     "🚀 Klik disini Untuk Ambil Ulasan Terbaru",
     key="crawl-btn",
-    disabled=remaining > 0  # ❌ Tombol nonaktif jika masih cooldown
+    disabled=false > 0  # ❌ Tombol nonaktif jika masih cooldown
 )
 
 if crawl_btn:
