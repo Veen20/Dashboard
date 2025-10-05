@@ -450,73 +450,73 @@ if "last_crawl_time" not in st.session_state:
 if "cooldown_until" not in st.session_state:
     st.session_state.cooldown_until = 0
 
-# ==========================
-# Sidebar Crawl Controls
-# ==========================
-st.sidebar.subheader("Crawling")
-crawl_limit = st.sidebar.slider("📝 Limit review per crawl", 5, 50, 10, step=5)
-
-status_msg = st.empty()
-
-# Interval cooldown (detik)
-COOLDOWN = 60
-
-# Hitung sisa waktu cooldown
-now = time.time()
-remaining = int(st.session_state.cooldown_until - now)
-
-# ==========================
-# Tombol Crawl (disable saat cooldown)
-# ==========================
-crawl_btn = st.sidebar.button(
-    "🚀 Klik disini Untuk Ambil Ulasan Terbaru",
-    key="crawl-btn",
-    disabled=True > 0  # ❌ Tombol nonaktif jika masih cooldown
-)
-
-if crawl_btn:
-    with st.spinner("Mengambil ulasan dari Google Maps..."):
-        added = crawl_gmaps_reviews(limit=crawl_limit)
-        fetch_comments.clear()  # refresh cache
-
-    if added == 0:
-        status_msg.info("ℹ️ Belum ada ulasan terbaru. Data saat ini sudah paling update.")
-    else:
-        status_msg.success(f"✅ {added} ulasan baru berhasil ditambahkan!")
-
-    # Set waktu cooldown berikutnya
-    st.session_state.last_crawl_time = now
-    st.session_state.cooldown_until = now + COOLDOWN
-
-    # Hapus pesan sukses setelah 3 detik
-    time.sleep(3)
-    status_msg.empty()
-
-# ==========================
-# Countdown Update
-# ==========================
-if remaining > 0:
-    status_msg.warning(f"⚠️ Jangan terlalu sering crawl! Coba lagi dalam {remaining} detik.")
-    st_autorefresh(interval=1000, key="cooldown-timer")
-
-
+# # ==========================
+# # Sidebar Crawl Controls
+# # ==========================
 # st.sidebar.subheader("Crawling")
-# crawl_limit = st.sidebar.slider("📝Limit review per crawl", 5, 50, 10, step=5)
+# crawl_limit = st.sidebar.slider("📝 Limit review per crawl", 5, 50, 10, step=5)
 
-# # Buat placeholder untuk status message
 # status_msg = st.empty()
-# if st.sidebar.button("🚀 Klik disini Untuk Ambil Ulasan Terbaru", key="crawl-btn"):
+
+# # Interval cooldown (detik)
+# COOLDOWN = 60
+
+# # Hitung sisa waktu cooldown
+# now = time.time()
+# remaining = int(st.session_state.cooldown_until - now)
+
+# # ==========================
+# # Tombol Crawl (disable saat cooldown)
+# # ==========================
+# crawl_btn = st.sidebar.button(
+#     "🚀 Klik disini Untuk Ambil Ulasan Terbaru",
+#     key="crawl-btn",
+#     disabled=True > 0  # ❌ Tombol nonaktif jika masih cooldown
+# )
+
+# if crawl_btn:
 #     with st.spinner("Mengambil ulasan dari Google Maps..."):
 #         added = crawl_gmaps_reviews(limit=crawl_limit)
 #         fetch_comments.clear()  # refresh cache
+
 #     if added == 0:
 #         status_msg.info("ℹ️ Belum ada ulasan terbaru. Data saat ini sudah paling update.")
 #     else:
-#         status_msg.success(f"✅ {added} ulasan baru berhasil ditambahkan!.")
-    
-#     # Hapus pesan setelah 3 detik
+#         status_msg.success(f"✅ {added} ulasan baru berhasil ditambahkan!")
+
+#     # Set waktu cooldown berikutnya
+#     st.session_state.last_crawl_time = now
+#     st.session_state.cooldown_until = now + COOLDOWN
+
+#     # Hapus pesan sukses setelah 3 detik
 #     time.sleep(3)
 #     status_msg.empty()
+
+# # ==========================
+# # Countdown Update
+# # ==========================
+# if remaining > 0:
+#     status_msg.warning(f"⚠️ Jangan terlalu sering crawl! Coba lagi dalam {remaining} detik.")
+#     st_autorefresh(interval=1000, key="cooldown-timer")
+
+
+st.sidebar.subheader("Crawling")
+crawl_limit = st.sidebar.slider("📝Limit review per crawl", 5, 50, 10, step=5)
+
+# Buat placeholder untuk status message
+status_msg = st.empty()
+if st.sidebar.button("🚀 Klik disini Untuk Ambil Ulasan Terbaru", key="crawl-btn"):
+    with st.spinner("Mengambil ulasan dari Google Maps..."):
+        added = crawl_gmaps_reviews(limit=crawl_limit)
+        fetch_comments.clear()  # refresh cache
+    if added == 0:
+        status_msg.info("ℹ️ Belum ada ulasan terbaru. Data saat ini sudah paling update.")
+    else:
+        status_msg.success(f"✅ {added} ulasan baru berhasil ditambahkan!.")
+    
+    # Hapus pesan setelah 3 detik
+    time.sleep(3)
+    status_msg.empty()
 
 st.sidebar.markdown("---")
 
